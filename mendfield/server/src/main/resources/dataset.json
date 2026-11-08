@@ -1,0 +1,350 @@
+{
+  "fixers": [
+    {
+      "id": "fx-01",
+      "displayName": "Maud Okafor",
+      "skills": [
+        "ELECTRICAL",
+        "ELECTRONICS"
+      ]
+    },
+    {
+      "id": "fx-02",
+      "displayName": "Tomasz Wren",
+      "skills": [
+        "MECHANICAL",
+        "BICYCLES"
+      ]
+    },
+    {
+      "id": "fx-03",
+      "displayName": "Ines Halloran",
+      "skills": [
+        "SEWING"
+      ]
+    },
+    {
+      "id": "fx-04",
+      "displayName": "Dev Raman",
+      "skills": [
+        "ELECTRONICS",
+        "COMPUTERS"
+      ]
+    },
+    {
+      "id": "fx-05",
+      "displayName": "Agnes Pike",
+      "skills": [
+        "WOODWORK",
+        "SHARPENING"
+      ]
+    },
+    {
+      "id": "fx-06",
+      "displayName": "Callum Reyes",
+      "skills": [
+        "ELECTRICAL",
+        "MECHANICAL"
+      ]
+    },
+    {
+      "id": "fx-07",
+      "displayName": "Noor Haddad",
+      "skills": [
+        "MECHANICAL",
+        "SEWING"
+      ]
+    },
+    {
+      "id": "fx-08",
+      "displayName": "Bertie Lomax",
+      "skills": [
+        "MECHANICAL",
+        "SHARPENING"
+      ]
+    }
+  ],
+  "events": [
+    {
+      "event": {
+        "id": "evt-01",
+        "title": "October Repair Café",
+        "venue": "Brindle Street Community Hall",
+        "date": "2026-10-17",
+        "opensAt": "10:00",
+        "closesAt": "13:00",
+        "timeZone": "Europe/London"
+      },
+      "slotMinutes": 30,
+      "fixerIds": [
+        "fx-01",
+        "fx-02",
+        "fx-03",
+        "fx-04",
+        "fx-05"
+      ]
+    },
+    {
+      "event": {
+        "id": "evt-02",
+        "title": "November Repair Café",
+        "venue": "Brindle Street Community Hall",
+        "date": "2026-11-21",
+        "opensAt": "10:00",
+        "closesAt": "13:00",
+        "timeZone": "Europe/London"
+      },
+      "slotMinutes": 30,
+      "fixerIds": [
+        "fx-01",
+        "fx-02",
+        "fx-03",
+        "fx-06",
+        "fx-07",
+        "fx-08"
+      ]
+    },
+    {
+      "event": {
+        "id": "evt-03",
+        "title": "Winter Mending Evening",
+        "venue": "Brindle Street Library, upstairs room",
+        "date": "2026-12-09",
+        "opensAt": "18:00",
+        "closesAt": "21:00",
+        "timeZone": "Europe/London"
+      },
+      "slotMinutes": 45,
+      "fixerIds": [
+        "fx-03",
+        "fx-04",
+        "fx-07"
+      ]
+    }
+  ],
+  "items": [
+    {
+      "item": {
+        "id": "item-001",
+        "eventId": "evt-01",
+        "category": "LAMP",
+        "description": "Brass desk lamp flickers",
+        "visitorName": "Rosa Lindqvist",
+        "registeredAt": "2026-10-17T08:55:00Z"
+      },
+      "slotId": "evt-01.fx-01.1"
+    },
+    {
+      "item": {
+        "id": "item-002",
+        "eventId": "evt-01",
+        "category": "BICYCLE",
+        "description": "Gears slip on the rear wheel",
+        "visitorName": "Jon Abara",
+        "registeredAt": "2026-10-17T08:57:00Z"
+      },
+      "slotId": "evt-01.fx-02.1"
+    },
+    {
+      "item": {
+        "id": "item-003",
+        "eventId": "evt-01",
+        "category": "CLOTHING",
+        "description": "Torn lining in a wool coat",
+        "visitorName": "Priya Natarajan",
+        "registeredAt": "2026-10-17T09:01:00Z"
+      },
+      "slotId": "evt-01.fx-03.1"
+    },
+    {
+      "item": {
+        "id": "item-004",
+        "eventId": "evt-01",
+        "category": "COMPUTER",
+        "description": "Laptop will not charge",
+        "visitorName": "Felix Dunmore",
+        "registeredAt": "2026-10-17T09:04:00Z"
+      },
+      "slotId": "evt-01.fx-04.1"
+    },
+    {
+      "item": {
+        "id": "item-005",
+        "eventId": "evt-01",
+        "category": "FURNITURE",
+        "description": "Wobbly kitchen chair",
+        "visitorName": "Rosa Lindqvist",
+        "registeredAt": "2026-10-17T09:06:00Z"
+      },
+      "slotId": "evt-01.fx-05.2"
+    },
+    {
+      "item": {
+        "id": "item-006",
+        "eventId": "evt-01",
+        "category": "AUDIO",
+        "description": "Radio has no sound",
+        "visitorName": "Martha Quill",
+        "registeredAt": "2026-10-17T09:10:00Z"
+      },
+      "slotId": "evt-01.fx-01.2"
+    },
+    {
+      "item": {
+        "id": "item-007",
+        "eventId": "evt-01",
+        "category": "TOOL",
+        "description": "Blunt garden shears",
+        "visitorName": "Owen Fairley",
+        "registeredAt": "2026-10-17T09:12:00Z"
+      },
+      "slotId": "evt-01.fx-05.1"
+    },
+    {
+      "item": {
+        "id": "item-008",
+        "eventId": "evt-01",
+        "category": "SMALL_APPLIANCE",
+        "description": "Kettle trips the fuse",
+        "visitorName": "Hana Sato",
+        "registeredAt": "2026-10-17T09:20:00Z"
+      },
+      "slotId": "evt-01.fx-01.3"
+    },
+    {
+      "item": {
+        "id": "item-009",
+        "eventId": "evt-01",
+        "category": "TOY",
+        "description": "Wind-up train stopped",
+        "visitorName": "Leo Abara",
+        "registeredAt": "2026-10-17T09:25:00Z"
+      },
+      "slotId": "evt-01.fx-02.2"
+    },
+    {
+      "item": {
+        "id": "item-010",
+        "eventId": "evt-01",
+        "category": "CLOCK",
+        "description": "Mantel clock runs slow",
+        "visitorName": "Iris Penhale",
+        "registeredAt": "2026-10-17T09:40:00Z"
+      }
+    },
+    {
+      "item": {
+        "id": "item-011",
+        "eventId": "evt-02",
+        "category": "LAMP",
+        "description": "Floor lamp switch is stiff",
+        "visitorName": "Gwen Arbuthnot",
+        "registeredAt": "2026-11-02T18:12:00Z"
+      },
+      "slotId": "evt-02.fx-01.1"
+    },
+    {
+      "item": {
+        "id": "item-012",
+        "eventId": "evt-02",
+        "category": "BICYCLE",
+        "description": "Front brake squeals",
+        "visitorName": "Sam Okoro",
+        "registeredAt": "2026-11-03T08:40:00Z"
+      },
+      "slotId": "evt-02.fx-02.1"
+    },
+    {
+      "item": {
+        "id": "item-013",
+        "eventId": "evt-02",
+        "category": "CLOTHING",
+        "description": "Broken zipper on a backpack",
+        "visitorName": "Gwen Arbuthnot",
+        "registeredAt": "2026-11-05T12:00:00Z"
+      }
+    },
+    {
+      "item": {
+        "id": "item-014",
+        "eventId": "evt-02",
+        "category": "CLOCK",
+        "description": "Alarm clock buzzer is silent",
+        "visitorName": "Theo Marsh",
+        "registeredAt": "2026-11-07T20:15:00Z"
+      }
+    }
+  ],
+  "outcomes": [
+    {
+      "id": "out-001",
+      "itemId": "item-001",
+      "kind": "FIXED",
+      "note": "Replaced the switch",
+      "loggedAt": "2026-10-17T09:28:00Z"
+    },
+    {
+      "id": "out-002",
+      "itemId": "item-002",
+      "kind": "FIXED",
+      "note": "Adjusted the derailleur and the cable tension",
+      "loggedAt": "2026-10-17T09:29:00Z"
+    },
+    {
+      "id": "out-003",
+      "itemId": "item-003",
+      "kind": "FIXED",
+      "note": "Relined the left pocket",
+      "loggedAt": "2026-10-17T09:27:00Z"
+    },
+    {
+      "id": "out-004",
+      "itemId": "item-004",
+      "kind": "PARTIAL",
+      "note": "Loose charging port fixed for now; a new port is needed",
+      "loggedAt": "2026-10-17T09:30:00Z"
+    },
+    {
+      "id": "out-005",
+      "itemId": "item-005",
+      "kind": "FIXED",
+      "note": "Reglued two joints",
+      "loggedAt": "2026-10-17T09:58:00Z"
+    },
+    {
+      "id": "out-006",
+      "itemId": "item-006",
+      "kind": "NOT_FIXED",
+      "note": "Amplifier chip failed; no spare part",
+      "loggedAt": "2026-10-17T09:59:00Z"
+    },
+    {
+      "id": "out-007",
+      "itemId": "item-007",
+      "kind": "FIXED",
+      "note": "Sharpened and oiled",
+      "loggedAt": "2026-10-17T09:25:00Z"
+    },
+    {
+      "id": "out-008",
+      "itemId": "item-008",
+      "kind": "NOT_FIXED",
+      "note": "Heating element shorted; not safe to repair",
+      "loggedAt": "2026-10-17T10:28:00Z"
+    },
+    {
+      "id": "out-009",
+      "itemId": "item-009",
+      "kind": "PARTIAL",
+      "note": "Spring rewound; one gear is worn",
+      "loggedAt": "2026-10-17T09:57:00Z"
+    },
+    {
+      "id": "out-010",
+      "itemId": "item-010",
+      "kind": "ADVICE",
+      "note": "Needs a full clean; referred to a clockmaker",
+      "loggedAt": "2026-10-17T09:45:00Z"
+    }
+  ]
+}
