@@ -13,11 +13,17 @@ jobs:
     runs-on: ubuntu-latest
     outputs:
       projects: ${{ steps.list.outputs.projects }}
+      swift: ${{ steps.list.outputs.swift }}
     steps:
       - uses: actions/checkout@v4
       - id: list
         run: |
-          echo "projects=$(ls -d */settings.gradle.kts | xargs -n1 dirname | grep -v '^toolchain-check$' | jq -R . | jq -cs .)" >> "$GITHUB_OUTPUT"
+          shopt -s nullglob
+          g=(*/settings.gradle.kts); s=(*/Package.swift)
+          printf '%s\n' "${g[@]}" | xargs -r -n1 dirname | grep -v '^toolchain-check$' | jq -R . | jq -cs . > g.json
+          printf '%s\n' "${s[@]}" | xargs -r -n1 dirname | jq -R . | jq -cs . > s.json
+          echo "projects=$(cat g.json)" >> "$GITHUB_OUTPUT"
+          echo "swift=$(cat s.json)" >> "$GITHUB_OUTPUT"
   linux:
     needs: discover
     if: needs.discover.outputs.projects != '[]'
@@ -55,3 +61,15 @@ jobs:
           xcodebuild -project iosApp.xcodeproj -scheme iosApp -configuration Debug \
             -sdk iphonesimulator -destination 'generic/platform=iOS Simulator' \
             CODE_SIGNING_ALLOWED=NO build | tail -30
+  swift:
+    # Pure Swift packages (Swift chapter): built and tested with SwiftPM on macOS.
+    needs: discover
+    if: needs.discover.outputs.swift != '[]'
+    strategy:
+      fail-fast: false
+      matrix: { package: "${{ fromJson(needs.discover.outputs.swift) }}" }
+    runs-on: macos-latest
+    defaults: { run: { working-directory: "${{ matrix.package }}" } }
+    steps:
+      - uses: actions/checkout@v4
+      - run: swift --version && swift build && swift test
