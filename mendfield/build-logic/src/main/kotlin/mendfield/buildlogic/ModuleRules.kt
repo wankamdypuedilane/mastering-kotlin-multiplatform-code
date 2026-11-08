@@ -7,6 +7,9 @@ private val leafModules = setOf(":core:model")
 /** Pure logic: no I/O modules below it. */
 private val pureModules = setOf(":core:model", ":core:domain")
 
+/** The entry points: the only modules that may use the app shell. */
+private val appModules = setOf(":androidApp", ":desktopApp", ":webApp")
+
 /**
  * The dependency rules of Mendfield, as data. [edges] maps a module to the
  * modules its main (non-test) code depends on.
@@ -27,5 +30,11 @@ private fun violation(from: String, to: String): String? = when {
         "$from -> $to: the server shares only the model and the domain"
     from.startsWith(":feature:") && to.startsWith(":feature:") ->
         "$from -> $to: features never depend on each other"
+    from.startsWith(":feature:") && to == ":core:database" ->
+        "$from -> $to: features read data through :core:data"
+    to == ":shared" && from !in appModules ->
+        "$from -> $to: only the app modules use the app shell"
+    to == ":core:testing" ->
+        "$from -> $to: test doubles are for test source sets only"
     else -> null
 }

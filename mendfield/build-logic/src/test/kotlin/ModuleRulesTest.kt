@@ -17,6 +17,35 @@ class ModuleRulesTest {
         assertEquals(emptyList(), moduleRuleViolations(edges))
     }
 
+    @Test fun theAppGraphOfPartTwoIsValid() {
+        val edges = mapOf(
+            ":core:data" to setOf(":core:domain", ":core:network", ":core:sync"),
+            ":core:database" to setOf(":core:data", ":core:sync"),
+            ":core:testing" to setOf(":core:data"),
+            ":feature:events" to setOf(":core:data"),
+            ":shared" to setOf(":core:data", ":core:database", ":feature:events"),
+            ":androidApp" to setOf(":shared"),
+            ":desktopApp" to setOf(":shared"),
+            ":webApp" to setOf(":shared", ":core:data"),
+        )
+        assertEquals(emptyList(), moduleRuleViolations(edges))
+    }
+
+    @Test fun featuresAndCoreKeepTheirDistance() {
+        val edges = mapOf(
+            ":feature:events" to setOf(":core:database", ":shared"),
+            ":core:data" to setOf(":core:testing"),
+        )
+        assertEquals(
+            listOf(
+                ":core:data -> :core:testing: test doubles are for test source sets only",
+                ":feature:events -> :core:database: features read data through :core:data",
+                ":feature:events -> :shared: only the app modules use the app shell",
+            ),
+            moduleRuleViolations(edges),
+        )
+    }
+
     @Test fun everyRuleHasAMessage() {
         val edges = mapOf(
             ":core:model" to setOf(":core:domain"),
