@@ -2,6 +2,7 @@
 package hearthseed.android
 
 import android.app.Application
+import hearthseed.shared.di.AppConfig
 import hearthseed.shared.di.initKoin
 import org.koin.android.ext.koin.androidContext
 
@@ -9,6 +10,9 @@ import org.koin.android.ext.koin.androidContext
 class HearthseedApplication : Application() {
     override fun onCreate() {
         super.onCreate()
-        initKoin { androidContext(this@HearthseedApplication) }
+        // BuildConfig is generated per build type of this module (Chapter 17).
+        initKoin(AppConfig(baseUrl = BuildConfig.BASE_URL)) {
+            androidContext(this@HearthseedApplication) // Room's Context
+        }
     }
 }

@@ -26,9 +26,14 @@ import hearthseed.core.data.userMessage
 import hearthseed.core.model.Loan
 
 @Composable
-fun MyLoansRoute(viewModel: MyLoansViewModel, memberName: String, onBack: () -> Unit) {
+fun MyLoansRoute(
+    viewModel: MyLoansViewModel,
+    memberName: String,
+    onBack: () -> Unit,
+    onRemind: ((List<Loan>) -> Unit)? = null, // null: no reminders (Chapter 17)
+) {
     val state by viewModel.state.collectAsStateWithLifecycle()
-    MyLoansScreen(state, memberName, viewModel::refresh, onBack)
+    MyLoansScreen(state, memberName, viewModel::refresh, onBack, onRemind)
 }
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -38,13 +43,21 @@ fun MyLoansScreen(
     memberName: String,
     onRefresh: () -> Unit,
     onBack: () -> Unit,
+    onRemind: ((List<Loan>) -> Unit)? = null,
 ) {
     Scaffold(
         topBar = {
             TopAppBar(
                 title = { Text("Loans of $memberName") },
                 navigationIcon = { TextButton(onClick = onBack) { Text("Back") } },
-                actions = { TextButton(onClick = onRefresh) { Text("Refresh") } },
+                actions = {
+                    if (onRemind != null && state is MyLoansUiState.Loans &&
+                        state.open.isNotEmpty()
+                    ) {
+                        TextButton(onClick = { onRemind(state.open) }) { Text("Remind me") }
+                    }
+                    TextButton(onClick = onRefresh) { Text("Refresh") }
+                },
             )
         },
     ) { padding ->

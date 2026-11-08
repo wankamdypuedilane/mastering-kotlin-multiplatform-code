@@ -28,6 +28,9 @@ kotlin {
             implementation(libs.koin.compose)
             implementation(libs.koin.compose.viewmodel)
         }
+        commonTest.dependencies {
+            implementation(project(":core:testing")) // Chapter 16: bridge tests
+        }
         jvmTest.dependencies {
             implementation(libs.koin.test)
         }

@@ -1,7 +1,7 @@
 // hearthseed/build-logic/src/main/kotlin/hearthseed/buildlogic/ModuleRules.kt
 package hearthseed.buildlogic
 
-private val appModules = setOf(":androidApp", ":desktopApp")
+private val appModules = setOf(":androidApp", ":desktopApp", ":webApp")
 
 /**
  * Exercise 11.4: the dependency rules of Hearthseed, as data. [edges] maps a

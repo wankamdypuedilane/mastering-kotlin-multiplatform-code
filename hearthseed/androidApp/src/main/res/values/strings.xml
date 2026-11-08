@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- hearthseed/androidApp/src/main/res/values/strings.xml -->
+<resources>
+    <string name="app_name">Hearthseed</string>
+    <string name="reminder_channel_name">Loan reminders</string>
+    <string name="reminder_title">Seed to return</string>
+</resources>

@@ -13,6 +13,9 @@ import hearthseed.feature.catalog.list.CatalogRoute
 import hearthseed.feature.catalog.summary
 import hearthseed.feature.loans.BorrowRoute
 import hearthseed.feature.loans.MyLoansRoute
+import hearthseed.shared.platform.LocalLoanReminders
+import hearthseed.shared.platform.LocalSharer
+import hearthseed.shared.platform.shareText
 import org.koin.compose.koinInject
 import org.koin.compose.viewmodel.koinViewModel
 import org.koin.core.parameter.parametersOf
@@ -39,6 +42,10 @@ fun HearthseedNavHost(
                     navController.navigate(Borrow(lot.id, summary))
                 },
                 onBack = { navController.popBackStack() },
+                // Chapter 17: only where the platform provides a Sharer.
+                onShare = LocalSharer.current?.let { sharer ->
+                    { variety -> sharer.share(shareText(variety)) }
+                },
             )
         }
         composable<Borrow> { entry ->
@@ -58,6 +65,7 @@ fun HearthseedNavHost(
                 viewModel = koinViewModel(),
                 memberName = koinInject<MemberSession>().displayName,
                 onBack = { navController.popBackStack() },
+                onRemind = LocalLoanReminders.current?.let { it::remind },
             )
         }
     }

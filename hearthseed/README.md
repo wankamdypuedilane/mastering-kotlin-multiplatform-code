@@ -22,8 +22,10 @@ which the local test server accepts and which is not a secret.
 | `:feature:catalog` | KMP + Compose | Catalog list (search, family filter, paging, refresh) and variety detail: screens and ViewModels |
 | `:feature:loans` | KMP + Compose | Borrow flow (POST, 409 handling) and "My loans": screens and ViewModels |
 | `:shared` | KMP + Compose | App shell: theme, navigation, Koin wiring, `App()`, iOS `MainViewController`; iOS framework `Shared` |
-| `:androidApp` | Android app | `Application` (starts Koin) and `MainActivity` |
+| `:androidApp` | Android app | `Application` (starts Koin), `MainActivity` (edge-to-edge), `AndroidSharer`, loan reminders (`POST_NOTIFICATIONS`), Robolectric tests in `src/test` |
 | `:desktopApp` | JVM app | `main()` with a Compose window |
+| `:webApp` | Wasm app (browser) | `ComposeViewport` entry point, web shell with a favorites panel, `index.html` (Chapter 18) |
+| `:webApp:support` | KMP library (JVM, JS, Wasm) | Compose-free web logic: favorites in `localStorage`, API base URL, `@JsExport` (JS), Chapter 18 solutions |
 | `iosApp/` | Xcode (XcodeGen) | SwiftUI app hosting the Compose UI |
 | `:solutions` | KMP + Compose | Exercise solutions of Chapters 11 and 12, with tests (Chapter 14: `ExerciseDao` in `:core:database`) |
 | `build-logic/` | included build | Convention plugins `hearthseed.kmp-library`, `hearthseed.kmp-compose`, `hearthseed.android-application`, `hearthseed.module-rules` |
@@ -33,7 +35,7 @@ each other; core modules depend only on core modules; only the app modules use
 `:shared`; `:core:testing` appears only in test source sets.
 
 Targets: Android, JVM (desktop), iOS (`iosArm64`, `iosSimulatorArm64`) and `wasmJs`
-(compiled only; the web app comes in Chapter 18).
+(the browser app `:webApp`, Chapter 18).
 
 ## Local data (Chapter 14)
 
@@ -59,6 +61,8 @@ commit the new `schemas/.../N.json`, extend `MigrationTest`.
 
 2. Start a client:
 
+   - Browser: `./gradlew :webApp:wasmJsBrowserDevelopmentRun`, then http://localhost:8080
+     (the dev server forwards `/api` to port 8085: the server sends no CORS headers).
    - Desktop: `./gradlew :desktopApp:run` (uses `http://localhost:8085/api/v1/`;
      set `HEARTHSEED_BASE_URL` to use another server; the value must end with `/`).
    - Android emulator: `./gradlew :androidApp:installDebug` (uses `http://10.0.2.2:8085/api/v1/`,
@@ -74,7 +78,8 @@ The base URL of each platform is `defaultBaseUrl()` in
 ## Tests
 
 ```bash
-./gradlew ciLinux -x wasmJsNodeTest   # everything that runs on Linux without Node.js
+./gradlew ciLinux -x wasmJsNodeTest -x jsNodeTest -x wasmJsBrowserDistribution
+                                      # everything that runs on Linux without npm
 ./gradlew ciLinux                     # CI: also the Wasm tests of the core modules
 ./gradlew ciMacos                     # macOS: iOS simulator tests + framework
 ```
@@ -103,12 +108,20 @@ The base URL of each platform is `defaultBaseUrl()` in
 - **iOS (Chapter 16):** the framework `Shared` exports `:core:model` and `:core:data`;
   `MainViewControllerKt.doInitKoinIos()` starts Koin. SwiftUI screens can replace
   `ComposeView` screen by screen.
-- **Android (Chapter 17):** `HearthseedApplication` starts Koin with `androidContext`.
-- **Web (Chapter 18):** `:shared` already compiles for `wasmJs` (browser). A `:webApp` module
-  needs a `ComposeViewport` entry point and `initKoin()`. `:core:database` compiles for
-  `wasmJs`; persisting on the web needs `androidx.sqlite:sqlite-web`
-  (`WebWorkerSQLiteDriver`) plus a worker script you serve (none ships with it). The test server sends no CORS
-  headers, so a page served from another origin needs a development proxy.
+- **Android (Chapter 17, done):** `HearthseedApplication` starts Koin with `androidContext`
+  and `BuildConfig.BASE_URL`. `MainActivity` provides the activity-scoped platform actions
+  `LocalSharer` and `LocalLoanReminders` (`shared/.../platform/PlatformActions.kt`); a
+  platform that provides none hides the Share / Remind me buttons. Build type `device`
+  (`assembleDevice`) uses `http://localhost:8085/api/v1/` for a USB phone after
+  `adb reverse tcp:8085 tcp:8085`. Host tests: `./gradlew :androidApp:testDebugUnitTest`
+  (Robolectric 4.17; the test JVM needs `--add-opens=java.base/jdk.internal.access=ALL-UNNAMED`,
+  set in `androidApp/build.gradle.kts`).
+- **Web (Chapter 18, done):** `:webApp` (`wasmJs`, `ComposeViewport`) calls `initKoin()`
+  plus a web module and hosts `HearthseedNavHost` in `WebShell` next to a favorites
+  panel; favorites live in `localStorage` (`:webApp:support`, tested on JVM/JS/Wasm).
+  The catalog stays in memory on the web: Room 3 would need `androidx.sqlite:sqlite-web`
+  (`WebWorkerSQLiteDriver`) plus a worker script you serve. The test server sends no
+  CORS headers, so the webpack dev server proxies `/api` to port 8085.
 - **Desktop (Chapter 19):** `desktopApp/.../Main.kt`; window, menus and packaging go there.
 - **Testing (Chapter 20):** fakes live in `:core:testing`; the UI and end-to-end tests are
   in `feature/catalog/src/jvmTest` and `shared/src/jvmTest`.

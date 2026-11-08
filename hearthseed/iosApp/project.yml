@@ -22,6 +22,8 @@ targets:
       base:
         PRODUCT_BUNDLE_IDENTIFIER: dev.example.hearthseed.iosApp
         ENABLE_USER_SCRIPT_SANDBOXING: NO
+        # Chapter 16: Swift 6 language mode (strict concurrency checking).
+        SWIFT_VERSION: "6.0"
         # Kotlin/Native no longer has iosX64: build the simulator app for arm64 only.
         "EXCLUDED_ARCHS[sdk=iphonesimulator*]": x86_64
         FRAMEWORK_SEARCH_PATHS: "$(SRCROOT)/../shared/build/xcode-frameworks/$(CONFIGURATION)/$(SDK_NAME)"

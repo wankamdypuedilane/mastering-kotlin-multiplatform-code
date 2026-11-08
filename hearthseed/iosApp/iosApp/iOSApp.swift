@@ -1,6 +1,6 @@
 // hearthseed/iosApp/iosApp/iOSApp.swift
 import SwiftUI
-import Shared
+@preconcurrency import Shared
 
 @main
 struct iOSApp: App {
@@ -11,8 +11,17 @@ struct iOSApp: App {
 
     var body: some Scene {
         WindowGroup {
-            // For now the whole UI is Compose; Chapter 16 adds SwiftUI screens.
-            ComposeView().ignoresSafeArea(.keyboard)
+            TabView {
+                // Option B (Chapter 16): native SwiftUI over shared ViewModels.
+                CatalogScreen()
+                    .tabItem { Label("Catalog", systemImage: "leaf") }
+                MyLoansScreen() // Exercise 16.3
+                    .tabItem { Label("My loans", systemImage: "tray") }
+                // Option A: the whole Compose UI, unchanged.
+                ComposeView()
+                    .ignoresSafeArea(.keyboard)
+                    .tabItem { Label("Compose", systemImage: "square.stack") }
+            }
         }
     }
 }
@@ -22,5 +31,6 @@ struct ComposeView: UIViewControllerRepresentable {
     func makeUIViewController(context: Context) -> UIViewController {
         MainViewControllerKt.MainViewController()
     }
-    func updateUIViewController(_ uiViewController: UIViewController, context: Context) {}
+    func updateUIViewController(_ uiViewController: UIViewController,
+                                context: Context) {}
 }

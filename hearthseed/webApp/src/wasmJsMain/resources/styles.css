@@ -1,0 +1,12 @@
+/* ComposeViewport adds no CSS of its own: give its container the window. */
+html, body {
+  width: 100%;
+  height: 100%;
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+}
+#hearthseed {
+  width: 100%;
+  height: 100%;
+}

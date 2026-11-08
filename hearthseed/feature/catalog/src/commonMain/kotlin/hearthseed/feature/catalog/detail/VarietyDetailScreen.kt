@@ -39,9 +39,11 @@ fun VarietyDetailRoute(
     viewModel: VarietyDetailViewModel,
     onBorrow: (lot: SeedLot, variety: Variety) -> Unit,
     onBack: () -> Unit,
+    onShare: ((Variety) -> Unit)? = null, // null: no share action (Chapter 17)
 ) {
     val state by viewModel.state.collectAsStateWithLifecycle()
-    VarietyDetailScreen(state, onBorrow, onBack, onRetry = viewModel::retry)
+    VarietyDetailScreen(state, onBorrow, onBack, onRetry = viewModel::retry,
+        onShare = onShare)
 }
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -51,12 +53,19 @@ fun VarietyDetailScreen(
     onBorrow: (SeedLot, Variety) -> Unit,
     onBack: () -> Unit,
     onRetry: () -> Unit,
+    onShare: ((Variety) -> Unit)? = null,
 ) {
     Scaffold(
         topBar = {
             TopAppBar(
                 title = { Text(state.variety?.commonName ?: "Variety") },
                 navigationIcon = { TextButton(onClick = onBack) { Text("Back") } },
+                actions = {
+                    val variety = state.variety
+                    if (onShare != null && variety != null) {
+                        TextButton(onClick = { onShare(variety) }) { Text("Share") }
+                    }
+                },
             )
         },
     ) { padding ->

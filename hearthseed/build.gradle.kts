@@ -23,6 +23,12 @@ tasks.register("ciLinux") {
         ":desktopApp:compileKotlinJvm")
     dependsOn(gradle.includedBuild("build-logic").task(":test"))
     dependsOn("checkModuleRules")
+    // Chapter 17: Android host tests (Robolectric in :androidApp).
+    dependsOn(":androidApp:testDebugUnitTest")
+    // Chapter 18: web logic on JVM, JS and Wasm; the app compiled and bundled
+    // (the bundle downloads npm packages, which CI can do).
+    dependsOn(":webApp:support:allTests", ":webApp:compileKotlinWasmJs",
+        ":webApp:wasmJsBrowserDistribution")
 }
 tasks.register("ciMacos") {
     val modules = libraryModules + composeModules

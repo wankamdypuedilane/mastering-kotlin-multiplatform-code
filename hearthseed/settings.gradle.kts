@@ -22,3 +22,4 @@ include(":core:model", ":core:network", ":core:data", ":core:database",
 include(":feature:catalog", ":feature:loans")
 include(":shared", ":androidApp", ":desktopApp")
 include(":solutions") // exercises of Chapters 11 and 12
+include(":webApp", ":webApp:support") // the browser app (Chapter 18)
