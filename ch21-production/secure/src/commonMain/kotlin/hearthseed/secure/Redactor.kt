@@ -8,16 +8,23 @@ object Redactor {
     /** Characters of a token (RFC 6750 "b64token"): stops at ")" or ",". */
     private const val VALUE = """[A-Za-z0-9._~+/=-]+"""
 
+    // RegexOption, not an inline (?i): JavaScript's RegExp (Kotlin/JS and
+    // Kotlin/Wasm) rejects inline flags with "Invalid group".
+    private fun rule(pattern: String, replacement: String) =
+        Regex(pattern, RegexOption.IGNORE_CASE) to replacement
+
     private val rules: List<Pair<Regex, String>> = listOf(
         // Authorization: Bearer abc.def
-        Regex("""(?i)(authorization:\s*bearer\s+)$VALUE""") to "$1$MASK",
+        rule("""(authorization:\s*bearer\s+)$VALUE""", "$1$MASK"),
         // X-Member-Token: demo-token-cleo (any *-token header)
-        Regex("""(?i)([\w-]*token:\s*)$VALUE""") to "$1$MASK",
+        rule("""([\w-]*token:\s*)$VALUE""", "$1$MASK"),
         // ?token=...&access_token=...&key=...
-        Regex("""(?i)([?&](?:token|access_token|api_key|key)=)[^&\s#]+""")
-            to "$1$MASK",
+        rule(
+            """([?&](?:token|access_token|api_key|key)=)[^&\s#]+""",
+            "$1$MASK",
+        ),
         // "token":"..." and "refreshToken":"..." in JSON bodies
-        Regex("""(?i)("\w*token"\s*:\s*)"[^"]*"""") to "$1\"$MASK\"",
+        rule("""("\w*token"\s*:\s*)"[^"]*"""", "$1\"$MASK\""),
     )
 
     fun redact(text: String): String =

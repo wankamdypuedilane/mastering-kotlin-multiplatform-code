@@ -45,7 +45,8 @@ actual val secureStorageKind: SecureStorageKind =
     SecureStorageKind.APPLE_KEYCHAIN
 
 /** A Keychain call failed with this OSStatus (see SecBase.h). */
-class KeychainException(val status: Int) : Exception("Keychain error $status")
+class KeychainException(val operation: String, val status: Int) :
+    Exception("$operation failed with OSStatus $status")
 
 /** Generic-password items in the Keychain, one per key, under [service]. */
 @OptIn(ExperimentalForeignApi::class, BetaInteropApi::class)
@@ -65,7 +66,7 @@ class KeychainSecureStore(private val service: String) : SecureStore {
                     ?.toString()
             }
             errSecItemNotFound -> null
-            else -> throw KeychainException(status)
+            else -> throw KeychainException("SecItemCopyMatching", status)
         }
     }
 
@@ -80,8 +81,10 @@ class KeychainSecureStore(private val service: String) : SecureStore {
             item, kSecAttrAccessible,
             kSecAttrAccessibleAfterFirstUnlockThisDeviceOnly,
         )
+        var operation = "SecItemAdd"
         var status = SecItemAdd(item, null)
         if (status == errSecDuplicateItem) {
+            operation = "SecItemUpdate"
             val query = itemQuery(key)
             val changes = dictionary()
             CFDictionaryAddValue(changes, kSecValueData, bridgedData)
@@ -91,7 +94,7 @@ class KeychainSecureStore(private val service: String) : SecureStore {
         }
         CFRelease(item)
         CFRelease(bridgedData)
-        if (status != errSecSuccess) throw KeychainException(status)
+        if (status != errSecSuccess) throw KeychainException(operation, status)
     }
 
     override suspend fun delete(key: String) {
@@ -99,7 +102,7 @@ class KeychainSecureStore(private val service: String) : SecureStore {
         val status = SecItemDelete(query)
         CFRelease(query)
         if (status != errSecSuccess && status != errSecItemNotFound) {
-            throw KeychainException(status)
+            throw KeychainException("SecItemDelete", status)
         }
     }
 
