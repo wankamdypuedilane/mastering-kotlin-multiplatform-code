@@ -73,7 +73,7 @@ fun networkModule(config: AppConfig) = module {
 fun dataModule(clock: Clock) = module {
     single<Clock> { clock }
     single { AppScope() }.withOptions { onClose { it?.cancel() } }
-    single { LocalWriter(get(), get()) }
+    single { LocalWriter(get(), get(), get()) } // cache, outbox, transactions
     single { EventRepository(get(), get(), get()) }
     single { IntakeRepository(get(), get(), get()) }
     single { OutcomeRepository(get(), get(), get()) }

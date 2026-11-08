@@ -45,14 +45,16 @@ class EventRepository(
         return DataResult.Success(Unit)
     }
 
-    suspend fun refreshEvent(eventId: String): DataResult<Unit> =
-        when (val result = remote.eventData(eventId)) {
+    suspend fun refreshEvent(eventId: String): DataResult<Unit> {
+        val pendingBefore = writer.pendingSnapshot() // before the GET
+        return when (val result = remote.eventData(eventId)) {
             is ApiResult.Failure -> result.toFailure()
             is ApiResult.Success -> {
-                writer.replaceEventData(eventId, result.value)
+                writer.replaceEventData(eventId, result.value, pendingBefore)
                 DataResult.Success(Unit)
             }
         }
+    }
 }
 
 private fun ApiResult.Failure.toFailure() = DataResult.Failure(error.toDataError())

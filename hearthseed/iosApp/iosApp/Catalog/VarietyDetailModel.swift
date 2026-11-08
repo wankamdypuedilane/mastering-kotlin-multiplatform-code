@@ -34,6 +34,5 @@ final class VarietyDetailModel {
 
 /// Kotlin types seen from Swift: Int is Int32, a Set<Int> holds KotlinInt.
 func sowingText(_ variety: Variety) -> String {
-    let months = variety.sowingMonths.map { $0.intValue }.sorted()
-    return months.map(String.init).joined(separator: ", ")
+    monthsText(variety.sowingMonths.map { Int($0.intValue) })
 }

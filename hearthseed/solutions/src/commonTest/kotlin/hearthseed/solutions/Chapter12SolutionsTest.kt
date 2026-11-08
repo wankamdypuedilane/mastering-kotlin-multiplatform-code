@@ -1,13 +1,8 @@
 // hearthseed/solutions/src/commonTest/kotlin/hearthseed/solutions/Chapter12SolutionsTest.kt
 package hearthseed.solutions
 
-import hearthseed.core.data.DataError
-import hearthseed.core.data.DataResult
-import hearthseed.core.data.getOrNull
-import hearthseed.core.data.local.InMemoryVarietyLocalSource
 import hearthseed.core.testing.FakeCatalogRepository
 import hearthseed.core.testing.FakeCatalogRepository.PageRequest
-import hearthseed.core.testing.SampleData
 import hearthseed.feature.catalog.list.CatalogUiState
 import hearthseed.feature.catalog.list.CatalogViewModel
 import kotlin.test.AfterTest
@@ -54,30 +49,5 @@ class Chapter12SolutionsTest {
         assertTrue(shouldLoadMore(lastVisibleIndex = 17, itemCount = 21))
         assertFalse(shouldLoadMore(lastVisibleIndex = null, itemCount = 21))
         assertFalse(shouldLoadMore(lastVisibleIndex = 0, itemCount = 0))
-    }
-
-    @Test fun offlinePagesComeFromTheDevice() = runTest {
-        val remote = FakeCatalogRepository()
-        val local = InMemoryVarietyLocalSource().apply { saveVarieties(SampleData.varieties) }
-        val repository = OfflineFallbackCatalogRepository(remote, local)
-
-        remote.failure = DataError.Offline
-        val page = repository.varieties("larkmoor", null, page = 1, pageSize = 20).getOrNull()
-        assertEquals(listOf("var-010"), page?.items?.map { it.id })
-        assertTrue(repository.servedFromDevice.value)
-
-        remote.failure = null
-        repository.varieties("", null, page = 1, pageSize = 20)
-        assertFalse(repository.servedFromDevice.value)
-    }
-
-    @Test fun otherErrorsAndAnEmptyDevicePassThrough() = runTest {
-        val remote = FakeCatalogRepository().apply { failure = DataError.Server(503) }
-        val repository = OfflineFallbackCatalogRepository(remote, InMemoryVarietyLocalSource())
-        assertEquals(DataResult.Failure(DataError.Server(503)),
-            repository.varieties("", null, 1, 20))
-        remote.failure = DataError.Offline
-        assertEquals(DataResult.Failure(DataError.Offline),
-            repository.varieties("", null, 1, 20))
     }
 }

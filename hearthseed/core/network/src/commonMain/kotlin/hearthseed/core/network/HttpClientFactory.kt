@@ -12,6 +12,7 @@ import io.ktor.client.plugins.logging.LogLevel
 import io.ktor.client.plugins.logging.Logger
 import io.ktor.client.plugins.logging.Logging
 import io.ktor.client.plugins.logging.SIMPLE
+import io.ktor.client.utils.unwrapCancellationException
 import io.ktor.http.HttpMethod
 import io.ktor.serialization.kotlinx.json.json
 import kotlin.coroutines.cancellation.CancellationException
@@ -54,7 +55,9 @@ fun createHttpClient(
                 request.method in idempotent && response.status.value >= 500
             }
             retryOnExceptionIf { request, cause ->
-                request.method in idempotent && cause !is CancellationException
+                // A timeout arrives wrapped in a CancellationException.
+                val error = cause.unwrapCancellationException()
+                request.method in idempotent && error !is CancellationException
             }
             exponentialDelay(
                 baseDelayMs = config.retryBaseDelayMillis,

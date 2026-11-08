@@ -19,8 +19,10 @@ import mendfield.core.data.ConnectivityMonitor
 import mendfield.core.data.EventRepository
 import mendfield.core.data.ProbingConnectivityMonitor
 import mendfield.core.data.SyncCoordinator
+import mendfield.core.data.TransactionRunner
 import mendfield.core.database.RoomCafeCache
 import mendfield.core.database.RoomOutboxStore
+import mendfield.core.database.RoomTransactionRunner
 import mendfield.core.database.mendfieldDatabase
 import mendfield.core.sync.OutboxStore
 import mendfield.feature.events.EventBoardViewModel
@@ -68,9 +70,11 @@ class AppModulesTest {
             single { mendfieldDatabase(file) }
             single<CafeCache> { RoomCafeCache(get()) }
             single<OutboxStore> { RoomOutboxStore(get()) }
+            single<TransactionRunner> { RoomTransactionRunner(get()) }
         }
         val koin = koinApplication { modules(mendfieldModules(storage = room)) }.koin
         assertIs<RoomCafeCache>(koin.get<CafeCache>())
+        assertIs<RoomTransactionRunner>(koin.get<TransactionRunner>())
         assertEquals(emptyList(), koin.get<EventRepository>().events.first())
         koin.close()
         file.delete()

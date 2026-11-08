@@ -25,7 +25,8 @@ class TestCafe(
     val cache = InMemoryCafeCache()
     val store = InMemoryOutboxStore()
     val clock = TestClock()
-    val writer = LocalWriter(cache, store, Outbox(store, clock, sequentialIds()))
+    val writer = LocalWriter(cache, store,
+        outbox = Outbox(store, clock, sequentialIds()))
     val events = EventRepository(server, cache, writer, compute)
     val intake = IntakeRepository(cache, writer, clock)
     val outcomes = OutcomeRepository(cache, writer, clock, compute)

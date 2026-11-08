@@ -17,6 +17,10 @@
     <string name="theme_system">System</string>
     <string name="theme_light">Light</string>
     <string name="theme_dark">Dark</string>
+    <!-- Forms and accessibility -->
+    <string name="grams_label">Grams to donate</string>
+    <string name="grams_error">Enter 1 to 500 grams</string>
+    <string name="donate">Donate</string>
     <plurals name="packets_left">
         <item quantity="one">%1$d packet left</item>
         <item quantity="other">%1$d packets left</item>

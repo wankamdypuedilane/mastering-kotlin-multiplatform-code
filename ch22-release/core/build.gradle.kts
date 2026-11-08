@@ -7,7 +7,7 @@ plugins {
 
 kotlin {
     android {
-        namespace = "com.example.hearthseed.release.core"
+        namespace = "dev.example.hearthseed.release.core"
         compileSdk = 37
         minSdk = 24
     }
@@ -29,7 +29,7 @@ mavenPublishing {
         signAllPublications()
     }
     coordinates(
-        groupId = "com.example.hearthseed",
+        groupId = "dev.example.hearthseed",
         artifactId = "release-core",
         version = providers.gradleProperty("release.version").get(),
     )

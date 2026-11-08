@@ -8,6 +8,7 @@ kotlin {
         namespace = "hearthseed.platform"
         compileSdk = 37
         minSdk = 24
+        withHostTest {}   // commonTest + androidHostTest on the local JVM
     }
     jvm()
     js { nodejs() }

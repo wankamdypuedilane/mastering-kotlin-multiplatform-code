@@ -11,6 +11,7 @@ tasks.register("ciLinux") {
     dependsOn(libraryModules.map { "$it:allTests" })
     dependsOn(libraryModules.map { "$it:targetReport" })
     dependsOn(":solutions:family:sourceStats")
+    dependsOn(gradle.includedBuild("build-logic").task(":test"))
 }
 
 tasks.register("ciMacos") {

@@ -25,7 +25,9 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
+import androidx.navigation.ExperimentalBrowserHistoryApi
 import androidx.navigation.NavDestination.Companion.hasRoute
+import androidx.navigation.bindToBrowserNavigation
 import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
 import androidx.navigation.toRoute
@@ -39,6 +41,7 @@ import hearthseed.web.support.FavoritesStore
 import org.koin.compose.koinInject
 
 /** The shared navigation, plus a favorites panel that only the web has. */
+@OptIn(ExperimentalBrowserHistoryApi::class)
 @Composable
 fun WebShell(
     store: FavoritesStore = koinInject(),
@@ -74,6 +77,10 @@ fun WebShell(
                 }
             }
         }
+    }
+    LaunchedEffect(navController) { // after the NavHost has its graph
+        // Back, Forward and the address bar (#...) drive the NavHost.
+        navController.bindToBrowserNavigation()
     }
 }
 

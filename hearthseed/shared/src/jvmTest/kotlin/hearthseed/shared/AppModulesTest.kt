@@ -3,6 +3,7 @@ package hearthseed.shared
 
 import hearthseed.core.data.CatalogRepository
 import hearthseed.core.data.LoanRepository
+import hearthseed.core.data.OfflineFallbackCatalogRepository
 import hearthseed.core.data.local.VarietyLocalSource
 import hearthseed.core.database.RoomVarietyLocalSource
 import hearthseed.core.database.hearthseedDatabase
@@ -40,6 +41,8 @@ class AppModulesTest {
         // Builds the real graph (HttpClient included) without any request.
         val koin = koinApplication { modules(hearthseedModules(AppConfig())) }.koin
         assertSame(koin.get<CatalogRepository>(), koin.get<CatalogRepository>())
+        // The catalog falls back to the local source when offline.
+        assertIs<OfflineFallbackCatalogRepository>(koin.get<CatalogRepository>())
         koin.get<LoanRepository>()
         koin.get<CatalogViewModel>()
         koin.get<VarietyDetailViewModel> { parametersOf("var-010") }
@@ -57,7 +60,9 @@ class AppModulesTest {
         }.koin
         val local = koin.get<VarietyLocalSource>()
         assertIs<RoomVarietyLocalSource>(local)
-        koin.get<CatalogViewModel>()
+        // A repository, not a ViewModel: a ViewModel would start loading, fall
+        // back to the database offline and outlive the close below.
+        assertIs<OfflineFallbackCatalogRepository>(koin.get<CatalogRepository>())
         assertNull(local.variety("var-001")) // empty and working
         koin.close() // onClose closes the database
         assertFailsWith<IllegalStateException> { local.variety("var-001") }

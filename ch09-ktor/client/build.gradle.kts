@@ -25,6 +25,7 @@ kotlin {
             implementation(libs.ktor.client.content.negotiation)
             implementation(libs.ktor.serialization.json)
             api(libs.ktor.client.logging) // ApiConfig exposes LogLevel and Logger
+            api(libs.ktor.client.auth) // bearer tokens (BearerAuth.kt)
         }
         commonTest.dependencies {
             implementation(kotlin("test"))

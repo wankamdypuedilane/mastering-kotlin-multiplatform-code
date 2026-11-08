@@ -5,6 +5,9 @@ import androidx.lifecycle.viewModelScope
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
+import kotlinx.coroutines.flow.filterNotNull
+import kotlinx.coroutines.flow.launchIn
+import kotlinx.coroutines.flow.onEach
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 import seedswap.core.DraftCheck
@@ -14,6 +17,7 @@ import seedswap.core.ProposalField
 import seedswap.core.ProposalResult
 import seedswap.core.SwapRepository
 import seedswap.core.check
+import seedswap.session.MemberSession
 
 data class ProposalFormUiState(
     val draft: ProposalDraft = ProposalDraft(),
@@ -26,9 +30,17 @@ data class ProposalFormUiState(
 class ProposalFormViewModel(
     private val offerId: String,
     private val repository: SwapRepository,
+    session: MemberSession? = null,
 ) : ViewModel() {
     private val _uiState = MutableStateFlow(ProposalFormUiState())
     val uiState: StateFlow<ProposalFormUiState> = _uiState.asStateFlow()
+
+    init {
+        // Fill in the member's name when someone signs in, if it is empty.
+        session?.member?.filterNotNull()?.onEach { name ->
+            if (_uiState.value.draft.member.isBlank()) onMemberChange(name)
+        }?.launchIn(viewModelScope)
+    }
 
     fun onMemberChange(text: String) =
         edit(ProposalField.MEMBER) { copy(member = text) }

@@ -5,6 +5,8 @@ import kotlinx.browser.window
 import mendfield.core.data.CafeCache
 import mendfield.core.data.InMemoryCafeCache
 import mendfield.core.data.KeyValueOutboxStore
+import mendfield.core.data.SequentialWrites
+import mendfield.core.data.TransactionRunner
 import mendfield.core.data.localStorageOrMemory
 import mendfield.core.sync.OutboxStore
 import org.koin.dsl.module
@@ -20,4 +22,5 @@ actual fun defaultBaseUrl(): String = "${window.location.origin}/api/v1/"
 actual fun platformStorageModule() = module {
     single<CafeCache> { InMemoryCafeCache() }
     single<OutboxStore> { KeyValueOutboxStore(localStorageOrMemory()) }
+    single<TransactionRunner> { SequentialWrites } // two stores, in order
 }

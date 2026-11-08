@@ -8,7 +8,7 @@ plugins {
 
 kotlin {
     android {
-        namespace = "com.example.hearthseed.release.shared"
+        namespace = "dev.example.hearthseed.release.shared"
         compileSdk = 37
         minSdk = 24
     }

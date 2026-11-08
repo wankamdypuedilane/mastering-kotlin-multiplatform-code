@@ -1,7 +1,7 @@
 # ch22-release/iosApp/project.yml
 name: iosApp
 options:
-  bundleIdPrefix: com.example.hearthseed
+  bundleIdPrefix: dev.example.hearthseed
   deploymentTarget:
     iOS: "17.0"
 targets:
@@ -19,7 +19,7 @@ targets:
         CADisableMinimumFrameDurationOnPhone: true
     settings:
       base:
-        PRODUCT_BUNDLE_IDENTIFIER: com.example.hearthseed.ios
+        PRODUCT_BUNDLE_IDENTIFIER: dev.example.hearthseed.ios
         MARKETING_VERSION: "1.4.2"       # keep equal to release.version
         CURRENT_PROJECT_VERSION: "7"     # raise for every upload
         CODE_SIGN_STYLE: Automatic       # team comes from the command line

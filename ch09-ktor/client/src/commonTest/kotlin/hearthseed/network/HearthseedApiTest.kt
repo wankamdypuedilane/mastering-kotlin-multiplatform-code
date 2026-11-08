@@ -114,6 +114,20 @@ class HearthseedApiTest {
         assertEquals(ApiResult.Failure(ApiError.Timeout), api.variety("var-001"))
     }
 
+    @Test fun timeoutIsPerAttemptAndRetried() = runTest {
+        // Each attempt gets its own 100 ms: the slow first one times out,
+        // and the retry, started after those 100 ms, still succeeds.
+        var attempts = 0
+        val (api, _) = testApi(
+            { attempts++; delay(5_000); respond(TOMATO, headers = jsonHeaders) },
+            { attempts++; respond(TOMATO, headers = jsonHeaders) },
+            config = ApiConfig(requestTimeoutMillis = 100, maxRetries = 1,
+                retryBaseDelayMillis = 1),
+        )
+        assertIs<ApiResult.Success<VarietyDto>>(api.variety("var-001"))
+        assertEquals(2, attempts)
+    }
+
     @Test fun mapsIoFailureToNetworkAfterRetries() = runTest {
         var attempts = 0
         val fail: MockRequestHandler = { attempts++; throw IOException("Connection refused") }

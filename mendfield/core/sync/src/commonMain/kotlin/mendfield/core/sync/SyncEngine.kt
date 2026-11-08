@@ -83,17 +83,29 @@ class SyncEngine(
     }
 
     /**
-     * Syncs whenever the device is [online] and there is new work: on
-     * reconnection, and when an operation is added while online.
+     * Syncs whenever the device is [online] and there is work: on
+     * reconnection, when an operation is added while online, and again
+     * [RetryPolicy.maxDelay] after a sync that gave up while still online.
      */
     fun launchIn(scope: CoroutineScope, online: Flow<Boolean>): Job =
         scope.launch {
             val newest = store.pending.map { it.lastOrNull()?.id }
-            combine(online, newest) { isOnline, id -> isOnline to id }
+            val retries = MutableStateFlow(0) // a tick re-runs the check
+            var retry: Job? = null
+            combine(online, newest, retries) { isOnline, id, tick ->
+                Triple(isOnline, id, tick)
+            }
                 .distinctUntilChanged()
                 .conflate() // a burst of changes gives one more sync
-                .collect { (isOnline, newestId) ->
-                    if (isOnline && newestId != null) syncNow()
+                .collect { (isOnline, newestId, _) ->
+                    if (!isOnline || newestId == null) return@collect
+                    if (syncNow() is SyncReport.GaveUp) {
+                        retry?.cancel()
+                        retry = launch { // a child: cancelled with the engine
+                            delay(policy.maxDelay)
+                            retries.value++
+                        }
+                    }
                 }
         }
 

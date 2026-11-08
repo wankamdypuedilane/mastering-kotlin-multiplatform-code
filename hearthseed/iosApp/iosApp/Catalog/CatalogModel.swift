@@ -55,5 +55,7 @@ final class CatalogModel {
         }
     }
 
+    // Swift 6: the deinit of a @MainActor class is nonisolated and may run on
+    // any thread. close() only cancels coroutines, which is thread-safe.
     deinit { observer.close() } // clears the ViewModel and its coroutines
 }

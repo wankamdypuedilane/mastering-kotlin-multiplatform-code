@@ -20,6 +20,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.ColorFilter
 import androidx.compose.ui.platform.testTag
+import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.unit.dp
 import org.jetbrains.compose.resources.painterResource
 import org.jetbrains.compose.resources.pluralStringResource
@@ -51,7 +52,10 @@ fun SeedPacketCard(
             verticalAlignment = Alignment.CenterVertically,
         ) {
             PacketBadge()
-            Column(Modifier.weight(1f).padding(horizontal = 12.dp)) {
+            Column(
+                Modifier.weight(1f).padding(horizontal = 12.dp)
+                    .semantics(mergeDescendants = true) {},  // read as one
+            ) {
                 Text(packet.name, style = MaterialTheme.typography.titleMedium)
                 Text(
                     stringResource(

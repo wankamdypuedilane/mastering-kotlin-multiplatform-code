@@ -5,6 +5,7 @@ import hearthseed.core.data.local.VarietyLocalSource
 import hearthseed.core.data.remote.toDataResult
 import hearthseed.core.data.remote.toDomain
 import hearthseed.core.data.remote.toDomainSkippingInvalid
+import hearthseed.core.data.remote.toLotsSkippingInvalid
 import hearthseed.core.model.SeedLot
 import hearthseed.core.model.Variety
 import hearthseed.core.network.HearthseedApi
@@ -72,7 +73,7 @@ class DefaultCatalogRepository(
     ): DataResult<List<SeedLot>> {
         // Lots change when members borrow: always ask the network.
         val result = api.lots(varietyId).toDataResult { lots ->
-            lots.map { it.toDomain() }
+            lots.toLotsSkippingInvalid()
         }
         if (result is DataResult.Success) {
             local.saveLots(varietyId, result.value) // observers update

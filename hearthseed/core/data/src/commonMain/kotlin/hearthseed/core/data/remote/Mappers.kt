@@ -13,8 +13,6 @@ import hearthseed.core.network.ApiResult
 import hearthseed.core.network.LoanDto
 import hearthseed.core.network.SeedLotDto
 import hearthseed.core.network.VarietyDto
-import hearthseed.core.network.Difficulty as DifficultyDto
-import hearthseed.core.network.LotStatus as LotStatusDto
 
 /** A DTO that cannot become a valid domain object (Chapter 10). */
 internal class InvalidDataException(message: String) : Exception(message)
@@ -26,10 +24,12 @@ internal fun VarietyDto.toDomain(): Variety {
     if (id.isBlank() || commonName.isBlank()) invalid("variety without id/name")
     if (daysToMaturity <= 0) invalid("variety $id: days=$daysToMaturity")
     if (sowingMonths.any { it !in 1..12 }) invalid("variety $id: $sowingMonths")
+    val level = Difficulty.entries.find { it.name == difficulty }
+        ?: invalid("variety $id: difficulty=$difficulty")
     return Variety(
         id = id, commonName = commonName.trim(), latinName = latinName.trim(),
         family = family.trim(), daysToMaturity = daysToMaturity,
-        sowingMonths = sowingMonths.toSet(), difficulty = difficulty.toDomain(),
+        sowingMonths = sowingMonths.toSet(), difficulty = level,
         description = description,
     )
 }
@@ -43,21 +43,26 @@ internal fun List<VarietyDto>.toDomainSkippingInvalid(): List<Variety> =
 internal fun SeedLotDto.toDomain(): SeedLot {
     if (grams <= 0) invalid("lot $id: grams=$grams")
     if (germinationRate !in 0..100) invalid("lot $id: rate=$germinationRate")
+    val lotStatus = LotStatus.entries.find { it.name == status }
+        ?: invalid("lot $id: status=$status")
     return SeedLot(
         id = id, varietyId = varietyId, harvestYear = harvestYear,
         grams = grams, germinationRate = germinationRate,
         donorMemberId = donorMemberId?.takeIf { it.isNotBlank() },
-        status = status.toDomain(),
+        status = lotStatus,
     )
 }
+
+/** The same rule for lots: an unknown status drops that lot only. */
+internal fun List<SeedLotDto>.toLotsSkippingInvalid(): List<SeedLot> =
+    mapNotNull { dto ->
+        try { dto.toDomain() } catch (_: InvalidDataException) { null }
+    }
 
 internal fun LoanDto.toDomain() = Loan(
     id = id, lotId = lotId, memberId = memberId, borrowedOn = borrowedOn,
     dueSeason = dueSeason, returnedGrams = returnedGrams,
 )
-
-private fun DifficultyDto.toDomain() = Difficulty.valueOf(name)
-private fun LotStatusDto.toDomain() = LotStatus.valueOf(name)
 
 /** Chapter 9's network errors, in the words of the screens. */
 internal fun ApiError.toDataError(): DataError = when (this) {

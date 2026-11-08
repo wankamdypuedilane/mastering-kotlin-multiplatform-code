@@ -25,9 +25,11 @@ import kotlinx.io.IOException
 
 private val json = headersOf(HttpHeaders.ContentType, "application/json")
 
-private fun variety(id: String, name: String, days: Int = 60) = """{"id":"$id",
+private fun variety(
+    id: String, name: String, days: Int = 60, difficulty: String = "EASY",
+) = """{"id":"$id",
 "commonName":"$name","latinName":"Pisum sativum","family":"Fabaceae",
-"daysToMaturity":$days,"sowingMonths":[3,4],"difficulty":"EASY",
+"daysToMaturity":$days,"sowingMonths":[3,4],"difficulty":"$difficulty",
 "description":"A pea."}"""
 
 private const val LOTS = """[
@@ -87,6 +89,63 @@ class RepositoryTest {
         val page = catalog.varieties(" ", null, page = 1).getOrNull()!!
         assertEquals(listOf("var-1"), page.items.map { it.id })
         assertEquals("page=1&pageSize=20", server.requests.single().url.encodedQuery)
+    }
+
+    @Test fun unknownEnumValuesDropOneItemNotThePage() = runTest {
+        server.routes["GET /api/v1/varieties"] = {
+            respond("""{"items":[${variety("var-1", "Pea")},
+                ${variety("var-2", "Odd", difficulty = "EXPERT")}],
+                "page":1,"pageSize":20,"total":2}""", headers = json)
+        }
+        server.routes["GET /api/v1/varieties/var-2"] = {
+            respond(variety("var-2", "Odd", difficulty = "EXPERT"), headers = json)
+        }
+        server.routes["GET /api/v1/varieties/var-1/lots"] = {
+            respond(LOTS.replace("ON_LOAN", "IN_QUARANTINE"), headers = json)
+        }
+        val page = catalog.varieties("", null, page = 1).getOrNull()!!
+        assertEquals(listOf("var-1"), page.items.map { it.id })
+        assertIs<DataError.Unexpected>(
+            assertIs<DataResult.Failure>(catalog.variety("var-2")).error)
+        val lots = catalog.refreshLots("var-1").getOrNull()!!
+        assertEquals(listOf("lot-1"), lots.map { it.id })
+    }
+
+    @Test fun offlineFallbackServesStoredVarietiesWhenTheServerIsGone() = runTest {
+        val repository = OfflineFallbackCatalogRepository(catalog, local)
+        var online = true
+        server.routes["GET /api/v1/varieties"] = {
+            if (!online) throw IOException("refused")
+            respond("""{"items":[${variety("var-1", "Larkmoor Pea")},
+                ${variety("var-2", "Quarry Bean")}],
+                "page":1,"pageSize":20,"total":2}""", headers = json)
+        }
+        // Online: the network answers, and the page is stored locally.
+        val fromServer = repository.varieties("", null, page = 1).getOrNull()!!
+        assertEquals(listOf("var-1", "var-2"), fromServer.items.map { it.id })
+        assertEquals(false, repository.servedFromDevice.value)
+        assertEquals(1, server.requests.size)
+
+        // Offline: the same call is answered from the local source.
+        online = false
+        val fromDevice = repository.varieties("pea", null, page = 1).getOrNull()!!
+        assertEquals(listOf("var-1"), fromDevice.items.map { it.id })
+        assertEquals(1, fromDevice.total)
+        assertTrue(repository.servedFromDevice.value)
+        assertEquals(2, server.requests.size) // it did try the network first
+    }
+
+    @Test fun offlineFallbackPassesOtherErrorsAndAnEmptyDeviceThrough() = runTest {
+        val repository = OfflineFallbackCatalogRepository(catalog, local)
+        server.routes["GET /api/v1/varieties"] = { throw IOException("refused") }
+        assertEquals(DataResult.Failure(DataError.Offline),
+            repository.varieties("", null, page = 1)) // nothing seen yet
+        server.routes["GET /api/v1/varieties"] = {
+            respond("""{"code":"oops","message":"down"}""",
+                HttpStatusCode.ServiceUnavailable, json)
+        }
+        assertEquals(DataResult.Failure(DataError.Server(503)),
+            repository.varieties("", null, page = 1))
     }
 
     @Test fun unknownVarietyIsNotFoundAndNoNetworkIsOffline() = runTest {

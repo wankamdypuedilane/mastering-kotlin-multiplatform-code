@@ -119,6 +119,8 @@ private fun FrameWindowScope.EditorMenuBar(
         Menu("View", mnemonic = 'V') {
             Item("Large preview", shortcut = shortcut(Key.P),
                 onClick = onLargePreview)
+            Item("Preview in a Swing window",
+                onClick = { showSwingPreviewFrame(editor) })
         }
         Menu("Help", mnemonic = 'H') {
             Item("Seed library website", onClick = {

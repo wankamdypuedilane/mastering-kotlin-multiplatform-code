@@ -26,7 +26,7 @@ compose.desktop.application {
         packageVersion = providers.gradleProperty("release.version").get()
         vendor = "Larkmoor Commons Seed Library"
         macOS {
-            bundleID = "com.example.hearthseed.desktop"
+            bundleID = "dev.example.hearthseed.desktop"
             val signingIdentity = secret("MACOS_SIGNING_IDENTITY")
             signing {
                 sign.set(signingIdentity != null)

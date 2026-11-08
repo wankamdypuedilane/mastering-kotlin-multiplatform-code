@@ -1,18 +1,16 @@
-// hearthseed/solutions/src/commonMain/kotlin/hearthseed/solutions/OfflineFallbackCatalogRepository.kt
-package hearthseed.solutions
+// hearthseed/core/data/src/commonMain/kotlin/hearthseed/core/data/OfflineFallbackCatalogRepository.kt
+package hearthseed.core.data
 
-import hearthseed.core.data.CatalogRepository
-import hearthseed.core.data.DataError
-import hearthseed.core.data.DataResult
-import hearthseed.core.data.VarietyPage
 import hearthseed.core.data.local.VarietyLocalSource
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
 
 /**
- * Exercise 12.4: a decorator. When the server cannot be reached, pages come
- * from the varieties already seen; [servedFromDevice] tells the UI so.
+ * A decorator (Exercise 12.4, bound by the app's dataModule). When the server
+ * cannot be reached, pages come from the varieties already seen and stored in
+ * [local]; [servedFromDevice] tells the UI so. With Room (Chapter 14) that
+ * copy survives a restart.
  */
 class OfflineFallbackCatalogRepository(
     private val delegate: CatalogRepository,

@@ -6,6 +6,7 @@ import hearthseed.core.data.DefaultCatalogRepository
 import hearthseed.core.data.DefaultLoanRepository
 import hearthseed.core.data.LoanRepository
 import hearthseed.core.data.MemberSession
+import hearthseed.core.data.OfflineFallbackCatalogRepository
 import hearthseed.core.data.local.InMemoryVarietyLocalSource
 import hearthseed.core.data.local.VarietyLocalSource
 import hearthseed.core.network.ApiConfig
@@ -46,7 +47,13 @@ val inMemoryLocalModule = module {
 
 fun dataModule(config: AppConfig) = module {
     single { config.session }
-    single<CatalogRepository> { DefaultCatalogRepository(get(), get()) }
+    single<CatalogRepository> {
+        // Offline, pages come from the varieties stored in the local source.
+        OfflineFallbackCatalogRepository(
+            delegate = DefaultCatalogRepository(api = get(), local = get()),
+            local = get(),
+        )
+    }
     single<LoanRepository> {
         DefaultLoanRepository(api = get(), local = get(), catalog = get(),
             session = get())

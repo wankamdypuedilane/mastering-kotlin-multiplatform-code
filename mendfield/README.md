@@ -44,8 +44,8 @@ convention plugins of `code/hearthseed`.
 | `:core:domain` | `mendfield.kmp-library` | same | Business rules, pure functions: time windows, slot grid, slot and assignment rules, triage, queue planning, outcome statistics. |
 | `:core:network` | `mendfield.kmp-library` + serialization | same | `MendfieldApi` (Ktor client), DTOs, mappers, `ApiError`/`ApiResult`, `createHttpClient`. |
 | `:core:sync` | `mendfield.kmp-library` | same | Outbox: `Operation`, `OutboxStore` (+ `InMemoryOutboxStore`), `Outbox`, `SyncEngine`, `RetryPolicy`, `ApiSyncTransport`, `OperationCodec`. |
-| `:core:data` | `mendfield.kmp-library` + serialization | same | `CafeCache` (+ `InMemoryCafeCache`), `CafeRemote`/`ApiCafeRemote`, `LocalWriter`, `withPending` (rebase), `EventRepository`, `IntakeRepository`, `OutcomeRepository`, `ConnectivityMonitor` (`ProbingConnectivityMonitor`, `ManualConnectivity`), `SyncCoordinator`/`SyncStatus`, `KeyValueOutboxStore` + `BrowserStorage` (web), `slotSuggestions`, `draftProblems`. |
-| `:core:database` | `mendfield.kmp-room` | Android, JVM, iOS | Room 3: `MendfieldDatabase` (tables `event`, `fixer`, `item`, `slot`, `outcome`, `outbox`), `CafeDao`, `OutboxDao`, `Converters`, `RoomCafeCache`, `RoomOutboxStore`, a builder per platform, `schemas/`. |
+| `:core:data` | `mendfield.kmp-library` + serialization | same | `CafeCache` (+ `InMemoryCafeCache`), `CafeRemote`/`ApiCafeRemote`, `LocalWriter`, `TransactionRunner` (+ `SequentialWrites`), `withPending` (rebase), `EventRepository`, `IntakeRepository`, `OutcomeRepository`, `ConnectivityMonitor` (`ProbingConnectivityMonitor`, `ManualConnectivity`), `SyncCoordinator`/`SyncStatus`, `KeyValueOutboxStore` + `BrowserStorage` (web), `slotSuggestions`, `draftProblems`. |
+| `:core:database` | `mendfield.kmp-room` | Android, JVM, iOS | Room 3: `MendfieldDatabase` (tables `event`, `fixer`, `item`, `slot`, `outcome`, `outbox`), `CafeDao`, `OutboxDao`, `Converters`, `RoomCafeCache`, `RoomOutboxStore`, `RoomTransactionRunner`, a builder per platform, `schemas/`. |
 | `:core:testing` | `mendfield.kmp-library` | all five | `SampleData`, `FakeCafeServer` (reads + outbox, with the domain rules), `TestCafe` (the data layer wired by hand), `TestClock`, `sequentialIds()`, `CafeCacheContract`, `OutboxStoreContract`. |
 | `:core:ui` | `mendfield.kmp-compose` | Android, JVM, Wasm, iOS | `MendfieldTheme`, labels and time formatting, `ErrorBanner`, `FullScreenError`, `FullScreenLoading`. |
 | `:feature:events` | `mendfield.kmp-compose` | same | Event list and the event board (counts, waiting items, triage suggestions, slots per fixer): `EventListViewModel`, `EventBoardViewModel`, `boardContent`, screens. |
@@ -148,6 +148,9 @@ server accepts 50) to `POST /api/v1/sync`:
   sees them and dismisses them. Nothing is retried or merged automatically.
 - `launchIn` syncs whenever the device is online and the newest queued
   operation changes: on reconnection, and when work is added while online.
+  After a `GaveUp` while still online, it tries again `RetryPolicy.maxDelay`
+  (1 minute) later, as long as work is queued; offline, it waits for the
+  reconnection.
 
 Conflict policy (the server is the authority):
 
@@ -176,15 +179,21 @@ Android, iOS and desktop), and the network only ever writes into it.
 - **Writes** (`IntakeRepository.registerItem`, `assign`,
   `OutcomeRepository.logOutcome`) check the rules of `:core:domain` against
   the device copy, then go through `LocalWriter`: **outbox first, then
-  cache**. If the app dies in between, the operation is still queued and the
-  next refresh replays it; the other order could lose a change. They never
-  wait for the network, so intake works the same offline.
+  cache, in one transaction** (`TransactionRunner`; `RoomTransactionRunner`
+  wraps both in one Room write transaction, `withWriteTransaction`). On the
+  web the two stores cannot share a transaction (`SequentialWrites`), so the
+  order matters: if the app dies in between, the operation is still queued
+  and the next refresh replays it; the other order could lose a change.
+  Writes never wait for the network, so intake works the same offline.
 - **Refresh** (`refreshEvents`, `refreshEvent`) replaces one event's rows in
   one transaction with the server's copy **rebased on the unsent operations**
   (`EventData.withPending`): an item registered offline does not vanish
   from the board while it waits in the outbox. `LocalWriter` serializes
   writes and refreshes with a mutex, so a refresh never overwrites a change
-  made while it was loading. A failed refresh changes nothing on screen; the
+  made while it was loading. The engine removes delivered operations outside
+  that mutex, so a refresh records the queue before its GET and rebases on
+  both queues: an operation delivered while the (possibly older) answer was
+  on its way is replayed onto it, never dropped (`RefreshRaceTest`). A failed refresh changes nothing on screen; the
   ViewModels show an `ErrorBanner` with Retry above the cached data, or a
   full-screen error with Retry when the device knows nothing yet.
 - **Sync:** `SyncCoordinator.start(scope)` runs the connectivity monitor and
@@ -236,7 +245,7 @@ sortable in SQL, for the years 1677 to 2262.
 | Device copy (`CafeCache`) | Room 3, file in the app's databases folder | Room 3, `Documents/mendfield.db` | Room 3, `~/.mendfield/mendfield.db` | **memory only** (`InMemoryCafeCache`): a reload starts empty and refetches |
 | Outbox (`OutboxStore`) | Room table `outbox` | Room table `outbox` | Room table `outbox` | **`localStorage`** (`KeyValueOutboxStore`, key `mendfield.outbox`); memory if the browser refuses storage |
 | Works offline after a restart | yes: board, stats and queued work | yes | yes | queued work survives a reload; the board does not (empty until the server answers) |
-| Cache and outbox in one transaction | yes (one database) | yes | yes | no (two stores) |
+| Cache and outbox in one transaction | yes (`RoomTransactionRunner`, one database) | yes | yes | no: two stores, written in order (outbox first) |
 | Region time zones | built in | built in | built in | `@js-joda/timezone` npm package |
 | Reaching the dev server | `http://10.0.2.2:8086` (emulator), cleartext allowed for it and `localhost` only | `http://localhost:8086` (simulator), `NSAllowsLocalNetworking` | `http://localhost:8086`, or `MENDFIELD_BASE_URL` | the page's origin; the webpack dev server proxies `/api` and `/health` to 8086 (the server sends no CORS headers) |
 | Tests that run | host tests of the Compose-free modules; `assembleDebug` | simulator tests of every module (CI, macOS) | everything on the JVM, including the desktop UI flow test | Node.js tests of the Compose-free modules (CI); the app is compiled and bundled, not run |
@@ -296,9 +305,9 @@ Tests (test functions; a common test runs on every target of its module):
 | `:core:model` | 5 | JVM, Android host, JS, Wasm, iOS |
 | `:core:domain` | 46 common + 3 JVM-only (daylight saving) | same |
 | `:core:network` | 18 | same |
-| `:core:sync` | 23 | same |
-| `:core:data` | 24 (cache and outbox contracts, rebase, repositories, connectivity in virtual time, sync coordinator) | same |
-| `:core:database` | 11 common (Room contracts, one-emission refresh, converters) + 1 JVM-only (file database survives a restart) | JVM, iOS |
+| `:core:sync` | 25 | same |
+| `:core:data` | 25 (cache and outbox contracts, rebase, the refresh race, repositories, connectivity in virtual time, sync coordinator) | same |
+| `:core:database` | 14 common (Room contracts, one-emission refresh, converters, the write transaction) + 1 JVM-only (file database survives a restart) | JVM, iOS |
 | `:core:ui` | 2 | JVM, iOS |
 | `:feature:events` | 5 (ViewModels) | JVM, iOS |
 | `:feature:intake` | 3 | JVM, iOS |

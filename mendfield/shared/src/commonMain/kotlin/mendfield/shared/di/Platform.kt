@@ -3,6 +3,8 @@ package mendfield.shared.di
 
 import mendfield.core.data.InMemoryCafeCache
 import mendfield.core.data.CafeCache
+import mendfield.core.data.SequentialWrites
+import mendfield.core.data.TransactionRunner
 import mendfield.core.sync.InMemoryOutboxStore
 import mendfield.core.sync.OutboxStore
 import org.koin.core.module.Module
@@ -25,4 +27,5 @@ expect fun platformStorageModule(): Module
 val inMemoryStorageModule = module {
     single<CafeCache> { InMemoryCafeCache() }
     single<OutboxStore> { InMemoryOutboxStore() }
+    single<TransactionRunner> { SequentialWrites }
 }

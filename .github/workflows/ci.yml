@@ -60,6 +60,10 @@ jobs:
     defaults: { run: { working-directory: "${{ matrix.project }}" } }
     steps:
       - uses: actions/checkout@v4
+      - name: Select Xcode 26.6 (the version the book was tested with)
+        run: |
+          if [ -d /Applications/Xcode_26.6.app ]; then sudo xcode-select -s /Applications/Xcode_26.6.app; fi
+          xcodebuild -version
       - uses: actions/setup-java@v4
         with: { distribution: temurin, java-version: "21" }
       - uses: gradle/actions/setup-gradle@v4
@@ -73,6 +77,16 @@ jobs:
           xcodebuild -project iosApp.xcodeproj -scheme iosApp -configuration Debug \
             -sdk iphonesimulator -destination 'generic/platform=iOS Simulator' \
             CODE_SIGNING_ALLOWED=NO build | tail -30
+      - name: Swift unit tests of the iOS app (if the project has a test target)
+        run: |
+          if [ ! -f iosApp/project.yml ] || ! grep -q 'iosAppTests' iosApp/project.yml; then echo "no iOS test target"; exit 0; fi
+          cd iosApp
+          set -o pipefail
+          # Pick the first available iPhone simulator of the selected Xcode.
+          UDID=$(xcrun simctl list devices available -j | python3 -c "import json,sys; d=json.load(sys.stdin)['devices']; print(next(x['udid'] for k,v in d.items() if 'iOS' in k for x in v if x['name'].startswith('iPhone')))")
+          echo "simulator $UDID"
+          xcodebuild -project iosApp.xcodeproj -scheme iosApp -configuration Debug \
+            -destination "id=$UDID" CODE_SIGNING_ALLOWED=NO test | tail -40
   swift:
     # Pure Swift packages (Swift chapter): built and tested with SwiftPM on macOS.
     needs: discover
@@ -84,4 +98,8 @@ jobs:
     defaults: { run: { working-directory: "${{ matrix.package }}" } }
     steps:
       - uses: actions/checkout@v4
+      - name: Select Xcode 26.6 (the version the book was tested with)
+        run: |
+          if [ -d /Applications/Xcode_26.6.app ]; then sudo xcode-select -s /Applications/Xcode_26.6.app; fi
+          xcodebuild -version
       - run: swift --version && swift build && swift test

@@ -1,8 +1,13 @@
 -- ch13-sql/exercises/solutions/ex4-waitlist.sql
--- Migration 1 -> 3 (version 2 adds storage_box, see 09-migration.sql).
+-- Migration 1 -> 3 in one transaction: version 2 exactly as in
+-- 09-migration.sql, then version 3. The database ends at 3 or stays at 1.
 BEGIN;
-ALTER TABLE seed_lot ADD COLUMN storage_box TEXT;
-CREATE TABLE waitlist (
+ALTER TABLE seed_lot ADD COLUMN storage_box TEXT;          -- 1 -> 2
+UPDATE seed_lot SET storage_box = 'B-' || harvest_year
+WHERE status <> 'RETIRED';
+CREATE INDEX seed_lot_variety_idx ON seed_lot (variety_id);
+PRAGMA user_version = 2;
+CREATE TABLE waitlist (                                    -- 2 -> 3
   member_id    INTEGER NOT NULL REFERENCES member (id),
   variety_id   INTEGER NOT NULL REFERENCES variety (id),
   requested_on TEXT    NOT NULL,

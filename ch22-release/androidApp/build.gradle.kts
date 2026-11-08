@@ -14,10 +14,10 @@ fun secret(name: String): String? = providers.environmentVariable(name)
 val uploadKeystore = secret("HEARTHSEED_UPLOAD_KEYSTORE")
 
 android {
-    namespace = "com.example.hearthseed"
+    namespace = "dev.example.hearthseed"
     compileSdk = 37
     defaultConfig {
-        applicationId = "com.example.hearthseed"
+        applicationId = "dev.example.hearthseed"
         minSdk = 24
         targetSdk = 36
         versionCode = providers.gradleProperty("release.build").get().toInt()

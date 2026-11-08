@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- ch21-production/androidApp/src/main/res/xml/backup_rules.xml -->
+<!-- Android 11 and lower: the same exclusion for Auto Backup. -->
+<full-backup-content>
+    <exclude domain="sharedpref" path="hearthseed.secure.xml" />
+</full-backup-content>

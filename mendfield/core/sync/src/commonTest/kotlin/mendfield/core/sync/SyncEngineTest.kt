@@ -4,10 +4,13 @@ package mendfield.core.sync
 import kotlin.test.Test
 import kotlin.test.assertEquals
 import kotlin.test.assertIs
+import kotlin.time.Duration.Companion.milliseconds
+import kotlin.time.Duration.Companion.minutes
 import kotlin.time.Duration.Companion.seconds
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.test.advanceTimeBy
 import kotlinx.coroutines.test.runCurrent
 import kotlinx.coroutines.test.currentTime
 import kotlinx.coroutines.test.runTest
@@ -135,6 +138,38 @@ class SyncEngineTest {
         runCurrent()
         assertEquals(listOf(listOf("a"), listOf("b")), server.batches)
         assertEquals(emptyList(), store.pending.value)
+    }
+
+    @Test fun afterGivingUpWhileOnlineItTriesAgainAfterTheMaximumDelay() = runTest {
+        val online = MutableStateFlow(true)
+        val engine = SyncEngine(store, server, policy) // maxDelay: 1 minute
+        repeat(policy.maxAttempts) { server.script += Step.OFFLINE }
+        engine.launchIn(backgroundScope, online)
+        queue("a")
+        advanceTimeBy(7.seconds + 1.milliseconds) // 1 + 2 + 4 s of backoff
+        assertEquals(4, server.batches.size) // gave up, still online
+        assertEquals(listOf("a"), store.pending.value.map { it.id })
+
+        advanceTimeBy(1.minutes) // no new work, no reconnection: a retry
+        assertEquals(5, server.batches.size)
+        assertEquals(emptyList(), store.pending.value)
+        advanceTimeBy(10.minutes) // the outbox is empty: no more pushes
+        assertEquals(5, server.batches.size)
+    }
+
+    @Test fun noRetryWhileOffline() = runTest {
+        val online = MutableStateFlow(true)
+        val engine = SyncEngine(store, server, policy)
+        repeat(policy.maxAttempts) { server.script += Step.OFFLINE }
+        engine.launchIn(backgroundScope, online)
+        queue("a")
+        advanceTimeBy(8.seconds)
+        online.value = false // the probe noticed
+        advanceTimeBy(5.minutes)
+        assertEquals(4, server.batches.size)
+        online.value = true // reconnection syncs at once
+        runCurrent()
+        assertEquals(5, server.batches.size)
     }
 
     @Test fun backoffDoublesUpToTheMaximum() {

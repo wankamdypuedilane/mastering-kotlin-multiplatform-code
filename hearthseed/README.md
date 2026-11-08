@@ -16,7 +16,7 @@ which the local test server accepts and which is not a secret.
 |---|---|---|
 | `:core:model` | KMP library | Domain types: `Variety`, `SeedLot`, `Loan`, `Member`, `BotanicalFamilies` |
 | `:core:network` | KMP library | Ktor client of the API (from Chapter 9): DTOs, `HearthseedApi`, `ApiError` |
-| `:core:data` | KMP library | `CatalogRepository`, `LoanRepository`, `DataResult`/`DataError`, mappers, `VarietyLocalSource` (+ in-memory implementation) |
+| `:core:data` | KMP library | `CatalogRepository` (+ `OfflineFallbackCatalogRepository`, which serves stored varieties when the server cannot be reached), `LoanRepository`, `DataResult`/`DataError`, mappers, `VarietyLocalSource` (+ in-memory implementation) |
 | `:core:database` | KMP library + Room 3 | `HearthseedDatabase` (entities, DAOs, converters, migrations), `RoomVarietyLocalSource`, a database builder per platform, exported schemas in `schemas/` |
 | `:core:testing` | KMP library | Fakes and sample data for tests (`FakeCatalogRepository`, `FakeLoanRepository`) |
 | `:feature:catalog` | KMP + Compose | Catalog list (search, family filter, paging, refresh) and variety detail: screens and ViewModels |

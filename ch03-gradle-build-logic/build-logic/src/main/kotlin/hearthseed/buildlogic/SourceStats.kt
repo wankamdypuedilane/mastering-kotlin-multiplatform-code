@@ -30,9 +30,16 @@ abstract class SourceStats : DefaultTask() {
                 val files = set.walkTopDown()
                     .filter { it.isFile && it.extension == "kt" }.toList()
                 val count = files.sumOf { it.readLines().size }
-                "${set.name}: ${files.size} files, $count lines"
+                statLine(set.name, files.size, count)
             }
         reportFile.get().asFile.writeText(lines.joinToString("\n") + "\n")
         lines.forEach { logger.lifecycle(it) }
     }
 }
+
+/** One report line: "commonMain: 1 file, 7 lines". */
+internal fun statLine(sourceSet: String, files: Int, lines: Int): String =
+    "$sourceSet: ${plural(files, "file")}, ${plural(lines, "line")}"
+
+internal fun plural(count: Int, noun: String): String =
+    if (count == 1) "$count $noun" else "$count ${noun}s"

@@ -4,12 +4,8 @@ package hearthseed.core.network
 import kotlinx.serialization.Serializable
 
 // Client copies of the hearthseed-server contract (see its README.md).
-
-@Serializable
-enum class Difficulty { EASY, MEDIUM, HARD }
-
-@Serializable
-enum class LotStatus { AVAILABLE, ON_LOAN, RETIRED }
+// Enum-like values are Strings, as in Chapter 10: an unknown value from a
+// newer server then fails one item in the mapper, not the whole page.
 
 @Serializable
 data class VarietyDto(
@@ -19,7 +15,7 @@ data class VarietyDto(
     val family: String,
     val daysToMaturity: Int,
     val sowingMonths: List<Int>,
-    val difficulty: Difficulty,
+    val difficulty: String, // EASY, MEDIUM, HARD
     val description: String,
 )
 
@@ -31,7 +27,7 @@ data class SeedLotDto(
     val grams: Int,
     val germinationRate: Int,
     val donorMemberId: String? = null,
-    val status: LotStatus,
+    val status: String, // AVAILABLE, ON_LOAN, RETIRED
 )
 
 @Serializable
