@@ -1,0 +1,28 @@
+<resources>
+    <string name="app_title">Seed Packet Gallery</string>
+    <string name="dark_theme">Dark theme</string>
+    <string name="days_to_harvest">%1$d days to harvest</string>
+    <string name="sold_out">Sold out</string>
+    <string name="favorite_add">Add %1$s to favorites</string>
+    <string name="favorite_remove">Remove %1$s from favorites</string>
+    <string name="fewer">Fewer packets</string>
+    <string name="more">More packets</string>
+    <string name="back_to_top">Back to top</string>
+    <!-- Exercises 5.1 to 5.3 -->
+    <string name="family_legumes">Legumes</string>
+    <string name="family_nightshades">Nightshades</string>
+    <string name="family_squashes">Squashes</string>
+    <string name="family_greens">Greens</string>
+    <string name="all_families">All</string>
+    <string name="theme_system">System</string>
+    <string name="theme_light">Light</string>
+    <string name="theme_dark">Dark</string>
+    <plurals name="packets_left">
+        <item quantity="one">%1$d packet left</item>
+        <item quantity="other">%1$d packets left</item>
+    </plurals>
+    <plurals name="packets_reserved">
+        <item quantity="one">%1$d packet reserved</item>
+        <item quantity="other">%1$d packets reserved</item>
+    </plurals>
+</resources>

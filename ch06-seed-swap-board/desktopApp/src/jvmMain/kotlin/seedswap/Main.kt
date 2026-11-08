@@ -1,0 +1,8 @@
+package seedswap
+
+import androidx.compose.ui.window.Window
+import androidx.compose.ui.window.application
+
+fun main() = application {
+    Window(onCloseRequest = ::exitApplication, title = "Seed Swap Board") { App() }
+}
