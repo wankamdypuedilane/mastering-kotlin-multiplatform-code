@@ -1,0 +1,14 @@
+   family      lots  grams  best
+-------------  ----  -----  ----
+Fabaceae          3    350    95
+Cucurbitaceae     1     60    74
+Amaranthaceae     1     22    88
+Solanaceae        3     20    90
+Apiaceae          1     18    84
+Brassicaceae      1     12    85
+Asteraceae        1     10    93
+display_name  loans  grams
+------------  -----  -----
+Priya Lal         3     35
+Tomas Reyes       2     30
+Ada Fenwick       2     17

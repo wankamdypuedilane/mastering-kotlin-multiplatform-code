@@ -1,0 +1,7 @@
+Error near line 5: FOREIGN KEY constraint failed
+id   status
+--  ---------
+ 3  AVAILABLE
+id  status
+--  -------
+ 3  ON_LOAN

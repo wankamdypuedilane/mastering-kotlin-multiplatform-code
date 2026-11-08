@@ -1,0 +1,4 @@
+loan    member        variety      due
+----  ----------  ---------------  ----
+   4  Owen Marsh  Brindle Lettuce  2025
+   7  Priya Lal   Ember Pepper     2025

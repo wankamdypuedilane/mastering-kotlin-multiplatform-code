@@ -1,0 +1,14 @@
+id  display_name
+--  ------------
+ 7  Iris Penhale
+retired
+-------
+      2
+id    display_name     joined_on
+--  -----------------  ----------
+ 1  Ada Fenwick        2023-03-04
+ 2  Tomas Reyes-Vidal  2023-05-19
+ 3  Priya Lal          2024-02-11
+ 4  Owen Marsh         2024-09-30
+ 5  Hana Ito           2025-04-02
+ 7  Iris Penhale       2026-11-01

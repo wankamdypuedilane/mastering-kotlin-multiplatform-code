@@ -1,0 +1,7 @@
+   common_name      lent  back  yield
+------------------  ----  ----  -----
+Moorland Sugar Pea    30   340   11.3
+Scarlet Runner        20   200   10.0
+Lantern Squash        10    85    8.5
+Ruby Chard             4    30    7.5
+Gold Drop              2     7    3.5

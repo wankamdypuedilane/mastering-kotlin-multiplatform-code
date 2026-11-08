@@ -1,0 +1,9 @@
+[versions]
+kotlin = "2.4.21"
+sqlite-jdbc = "3.54.1.0"
+
+[libraries]
+sqlite-jdbc = { module = "org.xerial:sqlite-jdbc", version.ref = "sqlite-jdbc" }
+
+[plugins]
+kotlin-jvm = { id = "org.jetbrains.kotlin.jvm", version.ref = "kotlin" }

@@ -1,0 +1,10 @@
+user_version
+------------
+           1
+user_version
+------------
+           2
+id   status    storage_box
+--  ---------  -----------
+ 6  RETIRED    NULL
+ 7  AVAILABLE  B-2025

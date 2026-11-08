@@ -1,0 +1,7 @@
+Error near line 3: cannot store TEXT value in INTEGER column seed_lot.grams
+Error near line 5: CHECK constraint failed: germination_rate BETWEEN 0 AND 100
+Error near line 7: FOREIGN KEY constraint failed
+Error near line 9: UNIQUE constraint failed: member.email
+id  grams   type     status
+--  -----  -------  ---------
+14     40  integer  AVAILABLE

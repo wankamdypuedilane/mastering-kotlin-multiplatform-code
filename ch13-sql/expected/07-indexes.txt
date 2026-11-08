@@ -1,0 +1,5 @@
+QUERY PLAN
+|--SCAN loan
+`--USE TEMP B-TREE FOR ORDER BY
+QUERY PLAN
+`--SEARCH loan USING COVERING INDEX loan_member_idx (member_id=?)

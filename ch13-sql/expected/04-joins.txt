@@ -1,0 +1,15 @@
+id    member        variety      grams
+--  -----------  --------------  -----
+ 8  Ada Fenwick  Scarlet Runner     15
+ 9  Owen Marsh   Gold Drop           2
+10  Hana Ito     Winter Kale         3
+11  Priya Lal    Fenland Carrot      4
+loan  lent  returned
+----  ----  --------
+   1    20       200
+   2    30       340
+   3     2         7
+   4     2  NULL
+   5    10        85
+   6     4        30
+   7     1  NULL

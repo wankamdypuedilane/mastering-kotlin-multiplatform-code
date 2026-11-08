@@ -1,0 +1,12 @@
+   common_name         family      days
+------------------  -------------  ----
+Brindle Lettuce     Asteraceae       50
+Ruby Chard          Amaranthaceae    55
+Winter Kale         Brassicaceae     60
+Moorland Sugar Pea  Fabaceae         65
+id     common_name      difficulty
+--  ------------------  ----------
+10  Heron Melon         HARD
+ 7  Lantern Squash      MEDIUM
+ 2  Moorland Sugar Pea  EASY
+ 9  Ruby Chard          EASY
