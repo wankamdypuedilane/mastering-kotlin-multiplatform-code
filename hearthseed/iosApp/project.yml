@@ -1,0 +1,34 @@
+# hearthseed/iosApp/project.yml (XcodeGen: `xcodegen generate` writes iosApp.xcodeproj)
+name: iosApp
+options:
+  bundleIdPrefix: dev.example.hearthseed
+  deploymentTarget:
+    iOS: "17.0"
+targets:
+  iosApp:
+    type: application
+    platform: iOS
+    sources: [iosApp]
+    info:
+      path: iosApp/Info.plist
+      properties:
+        CFBundleDisplayName: Hearthseed
+        UILaunchScreen: {}
+        CADisableMinimumFrameDurationOnPhone: true
+        # Plain HTTP to http://localhost:8085 (hearthseed-server), development only.
+        NSAppTransportSecurity:
+          NSAllowsLocalNetworking: true
+    settings:
+      base:
+        PRODUCT_BUNDLE_IDENTIFIER: dev.example.hearthseed.iosApp
+        ENABLE_USER_SCRIPT_SANDBOXING: NO
+        # Kotlin/Native no longer has iosX64: build the simulator app for arm64 only.
+        "EXCLUDED_ARCHS[sdk=iphonesimulator*]": x86_64
+        FRAMEWORK_SEARCH_PATHS: "$(SRCROOT)/../shared/build/xcode-frameworks/$(CONFIGURATION)/$(SDK_NAME)"
+        OTHER_LDFLAGS: ["$(inherited)", "-framework", "Shared"]
+    preBuildScripts:
+      - name: Compile Kotlin framework
+        basedOnDependencyAnalysis: false
+        script: |
+          cd "$SRCROOT/.."
+          ./gradlew :shared:embedAndSignAppleFrameworkForXcode
