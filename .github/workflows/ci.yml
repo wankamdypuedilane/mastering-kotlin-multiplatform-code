@@ -16,12 +16,24 @@ jobs:
       swift: ${{ steps.list.outputs.swift }}
     steps:
       - uses: actions/checkout@v4
+        with: { fetch-depth: 0 }
       - id: list
+        env:
+          BEFORE: ${{ github.event.before }}
+          EVENT: ${{ github.event_name }}
         run: |
           shopt -s nullglob
+          # On push, build only the projects touched since the previous push
+          # (all of them on manual runs or when the workflow itself changed).
+          changed=""
+          if [ "$EVENT" = "push" ] && git cat-file -e "$BEFORE" 2>/dev/null; then
+            changed=$(git diff --name-only "$BEFORE" HEAD | cut -d/ -f1 | sort -u)
+            if echo "$changed" | grep -qx '.github'; then changed=""; fi
+          fi
+          keep() { if [ -z "$changed" ]; then cat; else grep -Fx -f <(echo "$changed") || true; fi; }
           g=(*/settings.gradle.kts); s=(*/Package.swift)
-          printf '%s\n' "${g[@]}" | xargs -r -n1 dirname | grep -v '^toolchain-check$' | jq -R . | jq -cs . > g.json
-          printf '%s\n' "${s[@]}" | xargs -r -n1 dirname | jq -R . | jq -cs . > s.json
+          printf '%s\n' "${g[@]}" | xargs -r -n1 dirname | grep -v '^toolchain-check$' | keep | jq -R . | jq -cs . > g.json
+          printf '%s\n' "${s[@]}" | xargs -r -n1 dirname | keep | jq -R . | jq -cs . > s.json
           echo "projects=$(cat g.json)" >> "$GITHUB_OUTPUT"
           echo "swift=$(cat s.json)" >> "$GITHUB_OUTPUT"
   linux:
