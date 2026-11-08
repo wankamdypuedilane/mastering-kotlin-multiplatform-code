@@ -13,7 +13,7 @@ plugins {
 // Compose-free modules: allTests runs JVM, Android host, JS and Wasm
 // (Node.js) tests. :core:testing has no tests of its own; it compiles here.
 val libraryModules = listOf(":core:model", ":core:domain", ":core:network",
-    ":core:sync", ":core:data", ":core:testing")
+    ":core:sync", ":core:data", ":core:testing", ":solutions")
 // Room: JVM tests here, iOS simulator tests on macOS (no web targets).
 val databaseModules = listOf(":core:database")
 // Compose modules: JVM tests only (Wasm tests would need Skiko in a browser).

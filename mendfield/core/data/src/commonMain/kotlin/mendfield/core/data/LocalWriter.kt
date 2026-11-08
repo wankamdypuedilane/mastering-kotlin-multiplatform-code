@@ -35,6 +35,7 @@ class LocalWriter(
     suspend fun replaceEventData(eventId: String, server: EventData) =
         mutex.withLock {
             val pending = store.pending.first().map { it.operation }
-            cache.replaceEventData(eventId, server.withPending(eventId, pending))
+            cache.replaceEventData(eventId,
+                server.withPending(eventId, pending))
         }
 }

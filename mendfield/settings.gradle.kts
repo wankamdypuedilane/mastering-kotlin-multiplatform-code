@@ -25,4 +25,6 @@ include(":server")
 include(":core:data", ":core:database", ":core:testing", ":core:ui")
 include(":feature:events", ":feature:intake", ":feature:outcomes")
 include(":shared", ":androidApp", ":desktopApp", ":webApp")
+// The solutions of the exercises of Chapter 23.
+include(":solutions")
 // The SwiftUI shell is an Xcode project (XcodeGen) in iosApp/.

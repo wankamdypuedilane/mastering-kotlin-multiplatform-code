@@ -17,6 +17,7 @@ convention plugins of `code/hearthseed`.
 |---|---|---|
 | 1 | `build-logic`, `:core:model`, `:core:domain`, `:core:network`, `:core:sync`, `:server` | done |
 | 2 | `:core:data`, `:core:database` (Room 3), `:core:ui`, `:core:testing`, `:feature:events`, `:feature:intake`, `:feature:outcomes`, `:shared`, `:androidApp`, `:desktopApp`, `:webApp`, `iosApp/` (SwiftUI shell) | done |
+| 3 | `:solutions`: the solutions of the chapter's exercises (`freeCapacity`, `pendingByEvent`, `ConflictResolver`), tested on every target | done |
 
 ## Modules
 
