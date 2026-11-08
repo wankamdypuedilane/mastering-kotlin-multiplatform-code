@@ -1,0 +1,14 @@
+# ch03-gradle-build-logic/gradle/libs.versions.toml
+[versions]
+kotlin = "2.4.21"
+
+[libraries.kotlin-gradle-plugin]
+# Put on build-logic's classpath; accessor: libs.kotlin.gradle.plugin
+module = "org.jetbrains.kotlin:kotlin-gradle-plugin"
+version.ref = "kotlin"
+
+[plugins.kotlin-multiplatform]
+# For builds that apply the plugin directly (accessor:
+# libs.plugins.kotlin.multiplatform); this build uses build-logic instead.
+id = "org.jetbrains.kotlin.multiplatform"
+version.ref = "kotlin"
