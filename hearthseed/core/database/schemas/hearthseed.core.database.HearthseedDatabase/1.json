@@ -1,0 +1,174 @@
+{
+  "formatVersion": 1,
+  "database": {
+    "version": 1,
+    "identityHash": "633c6cf375b1aff8bc9879ea86ee8bc3",
+    "entities": [
+      {
+        "tableName": "variety",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`id` TEXT NOT NULL, `common_name` TEXT NOT NULL, `latin_name` TEXT NOT NULL, `family` TEXT NOT NULL, `days_to_maturity` INTEGER NOT NULL, `sowing_months` TEXT NOT NULL, `difficulty` TEXT NOT NULL, `description` TEXT NOT NULL, PRIMARY KEY(`id`))",
+        "fields": [
+          {
+            "fieldPath": "id",
+            "columnName": "id",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "commonName",
+            "columnName": "common_name",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "latinName",
+            "columnName": "latin_name",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "family",
+            "columnName": "family",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "daysToMaturity",
+            "columnName": "days_to_maturity",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "sowingMonths",
+            "columnName": "sowing_months",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "difficulty",
+            "columnName": "difficulty",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "description",
+            "columnName": "description",
+            "affinity": "TEXT",
+            "notNull": true
+          }
+        ],
+        "primaryKey": {
+          "autoGenerate": false,
+          "columnNames": [
+            "id"
+          ]
+        }
+      },
+      {
+        "tableName": "lot_refresh",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`variety_id` TEXT NOT NULL, `refreshed_at` INTEGER NOT NULL, PRIMARY KEY(`variety_id`))",
+        "fields": [
+          {
+            "fieldPath": "varietyId",
+            "columnName": "variety_id",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "refreshedAt",
+            "columnName": "refreshed_at",
+            "affinity": "INTEGER",
+            "notNull": true
+          }
+        ],
+        "primaryKey": {
+          "autoGenerate": false,
+          "columnNames": [
+            "variety_id"
+          ]
+        }
+      },
+      {
+        "tableName": "seed_lot",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`id` TEXT NOT NULL, `variety_id` TEXT NOT NULL, `harvest_year` INTEGER NOT NULL, `grams` INTEGER NOT NULL, `germination_rate` INTEGER NOT NULL, `donor_member_id` TEXT, `status` TEXT NOT NULL, PRIMARY KEY(`id`), FOREIGN KEY(`variety_id`) REFERENCES `lot_refresh`(`variety_id`) ON UPDATE NO ACTION ON DELETE CASCADE )",
+        "fields": [
+          {
+            "fieldPath": "id",
+            "columnName": "id",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "varietyId",
+            "columnName": "variety_id",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "harvestYear",
+            "columnName": "harvest_year",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "grams",
+            "columnName": "grams",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "germinationRate",
+            "columnName": "germination_rate",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "donorMemberId",
+            "columnName": "donor_member_id",
+            "affinity": "TEXT"
+          },
+          {
+            "fieldPath": "status",
+            "columnName": "status",
+            "affinity": "TEXT",
+            "notNull": true
+          }
+        ],
+        "primaryKey": {
+          "autoGenerate": false,
+          "columnNames": [
+            "id"
+          ]
+        },
+        "indices": [
+          {
+            "name": "index_seed_lot_variety_id",
+            "unique": false,
+            "columnNames": [
+              "variety_id"
+            ],
+            "orders": [],
+            "createSql": "CREATE INDEX IF NOT EXISTS `index_seed_lot_variety_id` ON `${TABLE_NAME}` (`variety_id`)"
+          }
+        ],
+        "foreignKeys": [
+          {
+            "table": "lot_refresh",
+            "onDelete": "CASCADE",
+            "onUpdate": "NO ACTION",
+            "columns": [
+              "variety_id"
+            ],
+            "referencedColumns": [
+              "variety_id"
+            ]
+          }
+        ]
+      }
+    ],
+    "setupQueries": [
+      "CREATE TABLE IF NOT EXISTS room_master_table (id INTEGER PRIMARY KEY,identity_hash TEXT)",
+      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, '633c6cf375b1aff8bc9879ea86ee8bc3')"
+    ]
+  }
+}

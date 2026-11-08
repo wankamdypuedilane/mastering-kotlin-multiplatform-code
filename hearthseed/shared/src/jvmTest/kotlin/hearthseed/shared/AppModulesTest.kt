@@ -3,6 +3,9 @@ package hearthseed.shared
 
 import hearthseed.core.data.CatalogRepository
 import hearthseed.core.data.LoanRepository
+import hearthseed.core.data.local.VarietyLocalSource
+import hearthseed.core.database.RoomVarietyLocalSource
+import hearthseed.core.database.hearthseedDatabase
 import hearthseed.feature.catalog.detail.VarietyDetailViewModel
 import hearthseed.feature.catalog.list.CatalogViewModel
 import hearthseed.feature.loans.BorrowViewModel
@@ -10,15 +13,20 @@ import hearthseed.feature.loans.MyLoansViewModel
 import hearthseed.shared.di.AppConfig
 import hearthseed.shared.di.defaultBaseUrl
 import hearthseed.shared.di.hearthseedModules
+import hearthseed.shared.di.roomLocalModule
 import kotlin.test.AfterTest
 import kotlin.test.BeforeTest
 import kotlin.test.Test
 import kotlin.test.assertEquals
+import kotlin.test.assertFailsWith
+import kotlin.test.assertIs
+import kotlin.test.assertNull
 import kotlin.test.assertSame
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.test.UnconfinedTestDispatcher
 import kotlinx.coroutines.test.resetMain
+import kotlinx.coroutines.test.runTest
 import kotlinx.coroutines.test.setMain
 import org.koin.core.parameter.parametersOf
 import org.koin.dsl.koinApplication
@@ -38,6 +46,22 @@ class AppModulesTest {
         koin.get<BorrowViewModel> { parametersOf("lot-019") }
         koin.get<MyLoansViewModel>()
         koin.close() // closes the HttpClient (onClose)
+    }
+
+    @Test fun theRoomGraphResolvesAndClosesTheDatabase() = runTest {
+        val file = kotlin.io.path.createTempFile("hearthseed", ".db").toFile()
+        file.delete() // Room creates it
+        val koin = koinApplication {
+            modules(hearthseedModules(AppConfig(),
+                roomLocalModule { hearthseedDatabase(file) }))
+        }.koin
+        val local = koin.get<VarietyLocalSource>()
+        assertIs<RoomVarietyLocalSource>(local)
+        koin.get<CatalogViewModel>()
+        assertNull(local.variety("var-001")) // empty and working
+        koin.close() // onClose closes the database
+        assertFailsWith<IllegalStateException> { local.variety("var-001") }
+        file.delete()
     }
 
     @Test fun desktopTalksToLocalhost() {

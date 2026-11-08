@@ -39,7 +39,7 @@ fun networkModule(config: AppConfig) = module {
     single { HearthseedApi(get(), memberToken = config.session.token) }
 }
 
-/** The seam of Chapter 14: replace this module to keep data in Room. */
+/** The seam of Chapter 14; tests and the web app keep this in-memory one. */
 val inMemoryLocalModule = module {
     single<VarietyLocalSource> { InMemoryVarietyLocalSource() }
 }
@@ -74,6 +74,6 @@ fun initKoin(
 ) {
     startKoin {
         extra?.invoke(this)
-        modules(hearthseedModules(config))
+        modules(hearthseedModules(config, platformLocalModule())) // Room
     }
 }

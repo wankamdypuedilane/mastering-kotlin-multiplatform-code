@@ -9,7 +9,8 @@ plugins {
 }
 
 // Compose-free modules: allTests runs JVM and Wasm (Node.js) tests.
-val libraryModules = listOf(":core:model", ":core:network", ":core:data")
+val libraryModules =
+    listOf(":core:model", ":core:network", ":core:data", ":core:database")
 // Compose modules: JVM tests only (Wasm tests would need Skiko in a browser).
 val composeModules =
     listOf(":feature:catalog", ":feature:loans", ":shared", ":solutions")

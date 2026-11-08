@@ -10,6 +10,8 @@ dependencies {
     implementation(libs.serialization.gradle.plugin)
     implementation(libs.compose.gradle.plugin)
     implementation(libs.android.gradle.plugin)
+    implementation(libs.ksp.gradle.plugin)    // Room's code generator (Chapter 14)
+    implementation(libs.room3.gradle.plugin)  // plugin id androidx.room3
 
     testImplementation(kotlin("test"))
 }

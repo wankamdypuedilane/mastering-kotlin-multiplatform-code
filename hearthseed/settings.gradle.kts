@@ -17,7 +17,8 @@ dependencyResolutionManagement {
 
 rootProject.name = "hearthseed"
 
-include(":core:model", ":core:network", ":core:data", ":core:testing")
+include(":core:model", ":core:network", ":core:data", ":core:database",
+    ":core:testing")
 include(":feature:catalog", ":feature:loans")
 include(":shared", ":androidApp", ":desktopApp")
 include(":solutions") // exercises of Chapters 11 and 12

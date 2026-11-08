@@ -20,6 +20,7 @@ kotlin {
             api(project(":core:model"))
             api(project(":core:data"))
             implementation(project(":core:network"))
+            implementation(project(":core:database")) // Room (Chapter 14)
             implementation(project(":feature:catalog"))
             implementation(project(":feature:loans"))
             implementation(libs.navigation.compose)
