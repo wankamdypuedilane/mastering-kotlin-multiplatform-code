@@ -1,0 +1,1088 @@
+{
+  "varieties": [
+    {
+      "id": "var-001",
+      "commonName": "Larkmoor Ember tomato",
+      "latinName": "Solanum lycopersicum",
+      "family": "Solanaceae",
+      "daysToMaturity": 72,
+      "sowingMonths": [
+        3,
+        4
+      ],
+      "difficulty": "MEDIUM",
+      "description": "Round red fruits the size of a plum, with a sharp, bright flavour. Bred on the allotments behind the old mill."
+    },
+    {
+      "id": "var-002",
+      "commonName": "Quarry Gold tomato",
+      "latinName": "Solanum lycopersicum",
+      "family": "Solanaceae",
+      "daysToMaturity": 65,
+      "sowingMonths": [
+        3,
+        4
+      ],
+      "difficulty": "EASY",
+      "description": "A yellow cherry tomato that keeps cropping until the first frost. Children pick it straight from the vine."
+    },
+    {
+      "id": "var-003",
+      "commonName": "Stonewall Plum tomato",
+      "latinName": "Solanum lycopersicum",
+      "family": "Solanaceae",
+      "daysToMaturity": 80,
+      "sowingMonths": [
+        3
+      ],
+      "difficulty": "MEDIUM",
+      "description": "Dense, egg-shaped fruits with few seeds, grown by members who make passata every September."
+    },
+    {
+      "id": "var-004",
+      "commonName": "Fenwick Black tomato",
+      "latinName": "Solanum lycopersicum",
+      "family": "Solanaceae",
+      "daysToMaturity": 85,
+      "sowingMonths": [
+        3
+      ],
+      "difficulty": "HARD",
+      "description": "Dusky purple beefsteak with green shoulders. Needs a warm greenhouse and patience."
+    },
+    {
+      "id": "var-005",
+      "commonName": "Hollow Lane pepper",
+      "latinName": "Capsicum annuum",
+      "family": "Solanaceae",
+      "daysToMaturity": 75,
+      "sowingMonths": [
+        2,
+        3
+      ],
+      "difficulty": "MEDIUM",
+      "description": "Mild sweet pepper that turns from green to deep red. Thick walls, good for roasting."
+    },
+    {
+      "id": "var-006",
+      "commonName": "Tinder chilli",
+      "latinName": "Capsicum annuum",
+      "family": "Solanaceae",
+      "daysToMaturity": 90,
+      "sowingMonths": [
+        2
+      ],
+      "difficulty": "HARD",
+      "description": "Small upright pods with real heat. Grow it in a pot on the sunniest windowsill you have."
+    },
+    {
+      "id": "var-007",
+      "commonName": "Moorside aubergine",
+      "latinName": "Solanum melongena",
+      "family": "Solanaceae",
+      "daysToMaturity": 100,
+      "sowingMonths": [
+        2,
+        3
+      ],
+      "difficulty": "HARD",
+      "description": "Compact plants with slim violet fruits; only worth trying under cover in a cool climate."
+    },
+    {
+      "id": "var-008",
+      "commonName": "Cobble Blue potato",
+      "latinName": "Solanum tuberosum",
+      "family": "Solanaceae",
+      "daysToMaturity": 110,
+      "sowingMonths": [
+        4
+      ],
+      "difficulty": "EASY",
+      "description": "Blue-skinned potato with white flesh, saved in the library as true seed for curious members."
+    },
+    {
+      "id": "var-009",
+      "commonName": "Wren's Runner bean",
+      "latinName": "Phaseolus coccineus",
+      "family": "Fabaceae",
+      "daysToMaturity": 70,
+      "sowingMonths": [
+        5,
+        6
+      ],
+      "difficulty": "EASY",
+      "description": "Scarlet flowers loved by bees, then long flat pods. Climbs a two-metre cane in a month."
+    },
+    {
+      "id": "var-010",
+      "commonName": "Larkmoor Pea",
+      "latinName": "Pisum sativum",
+      "family": "Fabaceae",
+      "daysToMaturity": 60,
+      "sowingMonths": [
+        3,
+        4
+      ],
+      "difficulty": "EASY",
+      "description": "A tall shelling pea from the founding members' gardens. Sow early and give it twiggy supports."
+    },
+    {
+      "id": "var-011",
+      "commonName": "Milestone broad bean",
+      "latinName": "Vicia faba",
+      "family": "Fabaceae",
+      "daysToMaturity": 90,
+      "sowingMonths": [
+        2,
+        3,
+        10,
+        11
+      ],
+      "difficulty": "EASY",
+      "description": "Hardy bean that can be sown in autumn. Pinch out the tips when the first pods set."
+    },
+    {
+      "id": "var-012",
+      "commonName": "Speckled Hen bean",
+      "latinName": "Phaseolus vulgaris",
+      "family": "Fabaceae",
+      "daysToMaturity": 85,
+      "sowingMonths": [
+        5
+      ],
+      "difficulty": "MEDIUM",
+      "description": "Dwarf drying bean with cream seeds splashed in brown. Leave the pods on the plant until they rattle."
+    },
+    {
+      "id": "var-013",
+      "commonName": "Copper Kettle lentil",
+      "latinName": "Lens culinaris",
+      "family": "Fabaceae",
+      "daysToMaturity": 100,
+      "sowingMonths": [
+        4
+      ],
+      "difficulty": "MEDIUM",
+      "description": "Low, wiry plants and small brown lentils. An experiment that a few members repeat every year."
+    },
+    {
+      "id": "var-014",
+      "commonName": "Pennyroyal Lane squash",
+      "latinName": "Cucurbita maxima",
+      "family": "Cucurbitaceae",
+      "daysToMaturity": 110,
+      "sowingMonths": [
+        4,
+        5
+      ],
+      "difficulty": "MEDIUM",
+      "description": "Grey-green winter squash with orange flesh that stores until March in a cool room."
+    },
+    {
+      "id": "var-015",
+      "commonName": "Lantern pumpkin",
+      "latinName": "Cucurbita pepo",
+      "family": "Cucurbitaceae",
+      "daysToMaturity": 100,
+      "sowingMonths": [
+        4,
+        5
+      ],
+      "difficulty": "EASY",
+      "description": "Medium orange pumpkin for carving and soup. Sprawls widely, so give it space."
+    },
+    {
+      "id": "var-016",
+      "commonName": "Brookside courgette",
+      "latinName": "Cucurbita pepo",
+      "family": "Cucurbitaceae",
+      "daysToMaturity": 50,
+      "sowingMonths": [
+        4,
+        5
+      ],
+      "difficulty": "EASY",
+      "description": "Pale striped courgette. Two plants are enough for a family; pick the fruits small."
+    },
+    {
+      "id": "var-017",
+      "commonName": "Glasshouse cucumber",
+      "latinName": "Cucumis sativus",
+      "family": "Cucurbitaceae",
+      "daysToMaturity": 60,
+      "sowingMonths": [
+        3,
+        4
+      ],
+      "difficulty": "MEDIUM",
+      "description": "Smooth, crisp cucumber for a greenhouse. Keep the soil evenly moist to avoid bitterness."
+    },
+    {
+      "id": "var-018",
+      "commonName": "Ridge Walker cucumber",
+      "latinName": "Cucumis sativus",
+      "family": "Cucurbitaceae",
+      "daysToMaturity": 65,
+      "sowingMonths": [
+        5
+      ],
+      "difficulty": "EASY",
+      "description": "Short, spiny outdoor cucumber that tolerates cool nights. Good for pickling."
+    },
+    {
+      "id": "var-019",
+      "commonName": "Honeystone melon",
+      "latinName": "Cucumis melo",
+      "family": "Cucurbitaceae",
+      "daysToMaturity": 90,
+      "sowingMonths": [
+        4
+      ],
+      "difficulty": "HARD",
+      "description": "Small, fragrant melon with green flesh. Ripens only in a long, warm summer under glass."
+    },
+    {
+      "id": "var-020",
+      "commonName": "Ashby kale",
+      "latinName": "Brassica oleracea",
+      "family": "Brassicaceae",
+      "daysToMaturity": 65,
+      "sowingMonths": [
+        4,
+        5,
+        6
+      ],
+      "difficulty": "EASY",
+      "description": "Frilly blue-green leaves that sweeten after frost. Picks from autumn into spring."
+    },
+    {
+      "id": "var-021",
+      "commonName": "Northgate cabbage",
+      "latinName": "Brassica oleracea",
+      "family": "Brassicaceae",
+      "daysToMaturity": 95,
+      "sowingMonths": [
+        3,
+        4
+      ],
+      "difficulty": "MEDIUM",
+      "description": "Pointed spring cabbage with a tender heart. Net the young plants against pigeons."
+    },
+    {
+      "id": "var-022",
+      "commonName": "Lattice broccoli",
+      "latinName": "Brassica oleracea",
+      "family": "Brassicaceae",
+      "daysToMaturity": 120,
+      "sowingMonths": [
+        4,
+        5
+      ],
+      "difficulty": "MEDIUM",
+      "description": "Purple sprouting broccoli that overwinters and crops in the hungry gap of early spring."
+    },
+    {
+      "id": "var-023",
+      "commonName": "Firebrand radish",
+      "latinName": "Raphanus sativus",
+      "family": "Brassicaceae",
+      "daysToMaturity": 28,
+      "sowingMonths": [
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9
+      ],
+      "difficulty": "EASY",
+      "description": "Round scarlet radish ready in four weeks. Sow a short row every fortnight."
+    },
+    {
+      "id": "var-024",
+      "commonName": "Mill Race turnip",
+      "latinName": "Brassica rapa",
+      "family": "Brassicaceae",
+      "daysToMaturity": 55,
+      "sowingMonths": [
+        3,
+        4,
+        7,
+        8
+      ],
+      "difficulty": "EASY",
+      "description": "White turnip with a purple collar. Harvest at golf-ball size for the sweetest roots."
+    },
+    {
+      "id": "var-025",
+      "commonName": "Wintergreen rocket",
+      "latinName": "Eruca vesicaria",
+      "family": "Brassicaceae",
+      "daysToMaturity": 35,
+      "sowingMonths": [
+        3,
+        4,
+        8,
+        9
+      ],
+      "difficulty": "EASY",
+      "description": "Peppery leaves for salads that bolt quickly in heat; best sown in spring and late summer."
+    },
+    {
+      "id": "var-026",
+      "commonName": "Sandbank carrot",
+      "latinName": "Daucus carota",
+      "family": "Apiaceae",
+      "daysToMaturity": 75,
+      "sowingMonths": [
+        3,
+        4,
+        5,
+        6
+      ],
+      "difficulty": "MEDIUM",
+      "description": "Long orange roots for light soil. Thin carefully and cover against carrot fly."
+    },
+    {
+      "id": "var-027",
+      "commonName": "Tollgate parsnip",
+      "latinName": "Pastinaca sativa",
+      "family": "Apiaceae",
+      "daysToMaturity": 130,
+      "sowingMonths": [
+        3,
+        4
+      ],
+      "difficulty": "MEDIUM",
+      "description": "Slow to germinate, long to grow, and worth it after the first frosts. Always sow fresh seed."
+    },
+    {
+      "id": "var-028",
+      "commonName": "Hedgerow parsley",
+      "latinName": "Petroselinum crispum",
+      "family": "Apiaceae",
+      "daysToMaturity": 75,
+      "sowingMonths": [
+        3,
+        4,
+        5,
+        6
+      ],
+      "difficulty": "EASY",
+      "description": "Flat-leaved parsley that self-seeds around the library's demonstration bed."
+    },
+    {
+      "id": "var-029",
+      "commonName": "Garden Gate celery",
+      "latinName": "Apium graveolens",
+      "family": "Apiaceae",
+      "daysToMaturity": 120,
+      "sowingMonths": [
+        2,
+        3
+      ],
+      "difficulty": "HARD",
+      "description": "Green celery for rich, wet soil. Start it indoors and never let it dry out."
+    },
+    {
+      "id": "var-030",
+      "commonName": "Larkmoor Butterhead lettuce",
+      "latinName": "Lactuca sativa",
+      "family": "Asteraceae",
+      "daysToMaturity": 55,
+      "sowingMonths": [
+        3,
+        4,
+        5,
+        6,
+        7,
+        8
+      ],
+      "difficulty": "EASY",
+      "description": "Soft, pale butterhead that forms a loose heart. The library's most borrowed lot."
+    },
+    {
+      "id": "var-031",
+      "commonName": "Red Fox lettuce",
+      "latinName": "Lactuca sativa",
+      "family": "Asteraceae",
+      "daysToMaturity": 50,
+      "sowingMonths": [
+        3,
+        4,
+        5,
+        6,
+        7
+      ],
+      "difficulty": "EASY",
+      "description": "Oak-leaf lettuce in bronze and red. Pick single leaves for weeks."
+    },
+    {
+      "id": "var-032",
+      "commonName": "Sunny Row sunflower",
+      "latinName": "Helianthus annuus",
+      "family": "Asteraceae",
+      "daysToMaturity": 90,
+      "sowingMonths": [
+        4,
+        5
+      ],
+      "difficulty": "EASY",
+      "description": "Tall single-headed sunflower; members save the seed for birds and for next year."
+    },
+    {
+      "id": "var-033",
+      "commonName": "Beacon chard",
+      "latinName": "Beta vulgaris",
+      "family": "Amaranthaceae",
+      "daysToMaturity": 55,
+      "sowingMonths": [
+        4,
+        5,
+        6,
+        7
+      ],
+      "difficulty": "EASY",
+      "description": "Chard with stems in yellow, pink and white. Cut-and-come-again from summer to winter."
+    },
+    {
+      "id": "var-034",
+      "commonName": "Old Forge beetroot",
+      "latinName": "Beta vulgaris",
+      "family": "Amaranthaceae",
+      "daysToMaturity": 60,
+      "sowingMonths": [
+        4,
+        5,
+        6
+      ],
+      "difficulty": "EASY",
+      "description": "Deep red globe beetroot. Each seed cluster gives several seedlings, so thin early."
+    },
+    {
+      "id": "var-035",
+      "commonName": "Lambsquarter spinach",
+      "latinName": "Spinacia oleracea",
+      "family": "Amaranthaceae",
+      "daysToMaturity": 45,
+      "sowingMonths": [
+        3,
+        4,
+        8,
+        9
+      ],
+      "difficulty": "MEDIUM",
+      "description": "Round-leaved spinach for cool seasons. Runs to seed in long summer days."
+    },
+    {
+      "id": "var-036",
+      "commonName": "Harbour onion",
+      "latinName": "Allium cepa",
+      "family": "Amaryllidaceae",
+      "daysToMaturity": 120,
+      "sowingMonths": [
+        2,
+        3
+      ],
+      "difficulty": "MEDIUM",
+      "description": "Golden storage onion grown from seed. Lift and dry the bulbs in August."
+    },
+    {
+      "id": "var-037",
+      "commonName": "Kingsway leek",
+      "latinName": "Allium porrum",
+      "family": "Amaryllidaceae",
+      "daysToMaturity": 150,
+      "sowingMonths": [
+        2,
+        3,
+        4
+      ],
+      "difficulty": "MEDIUM",
+      "description": "Hardy blue-leaved leek that stands in the ground through winter."
+    },
+    {
+      "id": "var-038",
+      "commonName": "Ferryman sweetcorn",
+      "latinName": "Zea mays",
+      "family": "Poaceae",
+      "daysToMaturity": 85,
+      "sowingMonths": [
+        4,
+        5
+      ],
+      "difficulty": "MEDIUM",
+      "description": "Sweet yellow corn. Plant in blocks, not rows, so the wind can pollinate it."
+    },
+    {
+      "id": "var-039",
+      "commonName": "Larkmoor Basil",
+      "latinName": "Ocimum basilicum",
+      "family": "Lamiaceae",
+      "daysToMaturity": 60,
+      "sowingMonths": [
+        4,
+        5
+      ],
+      "difficulty": "MEDIUM",
+      "description": "Large-leaved sweet basil that hates cold nights. Grow it in pots beside the tomatoes."
+    },
+    {
+      "id": "var-040",
+      "commonName": "Common Ground calendula",
+      "latinName": "Calendula officinalis",
+      "family": "Asteraceae",
+      "daysToMaturity": 55,
+      "sowingMonths": [
+        3,
+        4,
+        5,
+        9
+      ],
+      "difficulty": "EASY",
+      "description": "Orange edible flowers that draw hoverflies to the vegetable beds. Self-seeds freely."
+    }
+  ],
+  "lots": [
+    {
+      "id": "lot-001",
+      "varietyId": "var-001",
+      "harvestYear": 2023,
+      "grams": 12,
+      "germinationRate": 92,
+      "donorMemberId": null,
+      "status": "ON_LOAN"
+    },
+    {
+      "id": "lot-002",
+      "varietyId": "var-001",
+      "harvestYear": 2024,
+      "grams": 20,
+      "germinationRate": 78,
+      "donorMemberId": "mem-002",
+      "status": "AVAILABLE"
+    },
+    {
+      "id": "lot-003",
+      "varietyId": "var-002",
+      "harvestYear": 2024,
+      "grams": 20,
+      "germinationRate": 85,
+      "donorMemberId": "mem-002",
+      "status": "AVAILABLE"
+    },
+    {
+      "id": "lot-004",
+      "varietyId": "var-003",
+      "harvestYear": 2025,
+      "grams": 35,
+      "germinationRate": 78,
+      "donorMemberId": "mem-003",
+      "status": "AVAILABLE"
+    },
+    {
+      "id": "lot-005",
+      "varietyId": "var-004",
+      "harvestYear": 2023,
+      "grams": 50,
+      "germinationRate": 88,
+      "donorMemberId": "mem-004",
+      "status": "ON_LOAN"
+    },
+    {
+      "id": "lot-006",
+      "varietyId": "var-004",
+      "harvestYear": 2024,
+      "grams": 8,
+      "germinationRate": 70,
+      "donorMemberId": null,
+      "status": "AVAILABLE"
+    },
+    {
+      "id": "lot-007",
+      "varietyId": "var-005",
+      "harvestYear": 2024,
+      "grams": 8,
+      "germinationRate": 95,
+      "donorMemberId": null,
+      "status": "AVAILABLE"
+    },
+    {
+      "id": "lot-008",
+      "varietyId": "var-006",
+      "harvestYear": 2025,
+      "grams": 12,
+      "germinationRate": 70,
+      "donorMemberId": "mem-001",
+      "status": "AVAILABLE"
+    },
+    {
+      "id": "lot-009",
+      "varietyId": "var-007",
+      "harvestYear": 2023,
+      "grams": 20,
+      "germinationRate": 92,
+      "donorMemberId": "mem-002",
+      "status": "AVAILABLE"
+    },
+    {
+      "id": "lot-010",
+      "varietyId": "var-007",
+      "harvestYear": 2024,
+      "grams": 35,
+      "germinationRate": 78,
+      "donorMemberId": "mem-003",
+      "status": "AVAILABLE"
+    },
+    {
+      "id": "lot-011",
+      "varietyId": "var-008",
+      "harvestYear": 2024,
+      "grams": 35,
+      "germinationRate": 85,
+      "donorMemberId": "mem-003",
+      "status": "AVAILABLE"
+    },
+    {
+      "id": "lot-012",
+      "varietyId": "var-009",
+      "harvestYear": 2025,
+      "grams": 50,
+      "germinationRate": 78,
+      "donorMemberId": null,
+      "status": "AVAILABLE"
+    },
+    {
+      "id": "lot-013",
+      "varietyId": "var-010",
+      "harvestYear": 2023,
+      "grams": 8,
+      "germinationRate": 88,
+      "donorMemberId": "mem-005",
+      "status": "AVAILABLE"
+    },
+    {
+      "id": "lot-014",
+      "varietyId": "var-010",
+      "harvestYear": 2024,
+      "grams": 12,
+      "germinationRate": 70,
+      "donorMemberId": "mem-001",
+      "status": "AVAILABLE"
+    },
+    {
+      "id": "lot-015",
+      "varietyId": "var-011",
+      "harvestYear": 2024,
+      "grams": 12,
+      "germinationRate": 95,
+      "donorMemberId": "mem-001",
+      "status": "AVAILABLE"
+    },
+    {
+      "id": "lot-016",
+      "varietyId": "var-012",
+      "harvestYear": 2025,
+      "grams": 20,
+      "germinationRate": 70,
+      "donorMemberId": "mem-002",
+      "status": "AVAILABLE"
+    },
+    {
+      "id": "lot-017",
+      "varietyId": "var-013",
+      "harvestYear": 2023,
+      "grams": 35,
+      "germinationRate": 92,
+      "donorMemberId": null,
+      "status": "AVAILABLE"
+    },
+    {
+      "id": "lot-018",
+      "varietyId": "var-013",
+      "harvestYear": 2024,
+      "grams": 50,
+      "germinationRate": 78,
+      "donorMemberId": "mem-004",
+      "status": "AVAILABLE"
+    },
+    {
+      "id": "lot-019",
+      "varietyId": "var-014",
+      "harvestYear": 2024,
+      "grams": 50,
+      "germinationRate": 85,
+      "donorMemberId": "mem-004",
+      "status": "AVAILABLE"
+    },
+    {
+      "id": "lot-020",
+      "varietyId": "var-015",
+      "harvestYear": 2025,
+      "grams": 8,
+      "germinationRate": 78,
+      "donorMemberId": "mem-005",
+      "status": "AVAILABLE"
+    },
+    {
+      "id": "lot-021",
+      "varietyId": "var-016",
+      "harvestYear": 2023,
+      "grams": 12,
+      "germinationRate": 88,
+      "donorMemberId": "mem-001",
+      "status": "AVAILABLE"
+    },
+    {
+      "id": "lot-022",
+      "varietyId": "var-016",
+      "harvestYear": 2024,
+      "grams": 20,
+      "germinationRate": 70,
+      "donorMemberId": null,
+      "status": "AVAILABLE"
+    },
+    {
+      "id": "lot-023",
+      "varietyId": "var-017",
+      "harvestYear": 2024,
+      "grams": 20,
+      "germinationRate": 95,
+      "donorMemberId": null,
+      "status": "AVAILABLE"
+    },
+    {
+      "id": "lot-024",
+      "varietyId": "var-018",
+      "harvestYear": 2025,
+      "grams": 35,
+      "germinationRate": 70,
+      "donorMemberId": "mem-003",
+      "status": "AVAILABLE"
+    },
+    {
+      "id": "lot-025",
+      "varietyId": "var-019",
+      "harvestYear": 2023,
+      "grams": 50,
+      "germinationRate": 92,
+      "donorMemberId": "mem-004",
+      "status": "AVAILABLE"
+    },
+    {
+      "id": "lot-026",
+      "varietyId": "var-019",
+      "harvestYear": 2024,
+      "grams": 8,
+      "germinationRate": 78,
+      "donorMemberId": "mem-005",
+      "status": "AVAILABLE"
+    },
+    {
+      "id": "lot-027",
+      "varietyId": "var-020",
+      "harvestYear": 2024,
+      "grams": 8,
+      "germinationRate": 85,
+      "donorMemberId": "mem-005",
+      "status": "AVAILABLE"
+    },
+    {
+      "id": "lot-028",
+      "varietyId": "var-021",
+      "harvestYear": 2025,
+      "grams": 12,
+      "germinationRate": 78,
+      "donorMemberId": null,
+      "status": "AVAILABLE"
+    },
+    {
+      "id": "lot-029",
+      "varietyId": "var-022",
+      "harvestYear": 2023,
+      "grams": 20,
+      "germinationRate": 88,
+      "donorMemberId": "mem-002",
+      "status": "AVAILABLE"
+    },
+    {
+      "id": "lot-030",
+      "varietyId": "var-022",
+      "harvestYear": 2024,
+      "grams": 35,
+      "germinationRate": 70,
+      "donorMemberId": "mem-003",
+      "status": "AVAILABLE"
+    },
+    {
+      "id": "lot-031",
+      "varietyId": "var-023",
+      "harvestYear": 2024,
+      "grams": 35,
+      "germinationRate": 95,
+      "donorMemberId": "mem-003",
+      "status": "AVAILABLE"
+    },
+    {
+      "id": "lot-032",
+      "varietyId": "var-024",
+      "harvestYear": 2025,
+      "grams": 50,
+      "germinationRate": 70,
+      "donorMemberId": "mem-004",
+      "status": "AVAILABLE"
+    },
+    {
+      "id": "lot-033",
+      "varietyId": "var-025",
+      "harvestYear": 2023,
+      "grams": 8,
+      "germinationRate": 92,
+      "donorMemberId": null,
+      "status": "AVAILABLE"
+    },
+    {
+      "id": "lot-034",
+      "varietyId": "var-025",
+      "harvestYear": 2024,
+      "grams": 12,
+      "germinationRate": 78,
+      "donorMemberId": "mem-001",
+      "status": "AVAILABLE"
+    },
+    {
+      "id": "lot-035",
+      "varietyId": "var-026",
+      "harvestYear": 2024,
+      "grams": 12,
+      "germinationRate": 85,
+      "donorMemberId": "mem-001",
+      "status": "AVAILABLE"
+    },
+    {
+      "id": "lot-036",
+      "varietyId": "var-027",
+      "harvestYear": 2025,
+      "grams": 20,
+      "germinationRate": 78,
+      "donorMemberId": "mem-002",
+      "status": "AVAILABLE"
+    },
+    {
+      "id": "lot-037",
+      "varietyId": "var-028",
+      "harvestYear": 2023,
+      "grams": 35,
+      "germinationRate": 88,
+      "donorMemberId": "mem-003",
+      "status": "AVAILABLE"
+    },
+    {
+      "id": "lot-038",
+      "varietyId": "var-028",
+      "harvestYear": 2024,
+      "grams": 50,
+      "germinationRate": 70,
+      "donorMemberId": null,
+      "status": "AVAILABLE"
+    },
+    {
+      "id": "lot-039",
+      "varietyId": "var-029",
+      "harvestYear": 2024,
+      "grams": 50,
+      "germinationRate": 95,
+      "donorMemberId": null,
+      "status": "AVAILABLE"
+    },
+    {
+      "id": "lot-040",
+      "varietyId": "var-030",
+      "harvestYear": 2025,
+      "grams": 8,
+      "germinationRate": 70,
+      "donorMemberId": "mem-005",
+      "status": "AVAILABLE"
+    },
+    {
+      "id": "lot-041",
+      "varietyId": "var-031",
+      "harvestYear": 2023,
+      "grams": 12,
+      "germinationRate": 92,
+      "donorMemberId": "mem-001",
+      "status": "AVAILABLE"
+    },
+    {
+      "id": "lot-042",
+      "varietyId": "var-031",
+      "harvestYear": 2024,
+      "grams": 20,
+      "germinationRate": 78,
+      "donorMemberId": "mem-002",
+      "status": "AVAILABLE"
+    },
+    {
+      "id": "lot-043",
+      "varietyId": "var-032",
+      "harvestYear": 2024,
+      "grams": 20,
+      "germinationRate": 85,
+      "donorMemberId": "mem-002",
+      "status": "AVAILABLE"
+    },
+    {
+      "id": "lot-044",
+      "varietyId": "var-033",
+      "harvestYear": 2025,
+      "grams": 35,
+      "germinationRate": 78,
+      "donorMemberId": null,
+      "status": "AVAILABLE"
+    },
+    {
+      "id": "lot-045",
+      "varietyId": "var-034",
+      "harvestYear": 2023,
+      "grams": 50,
+      "germinationRate": 88,
+      "donorMemberId": "mem-004",
+      "status": "AVAILABLE"
+    },
+    {
+      "id": "lot-046",
+      "varietyId": "var-034",
+      "harvestYear": 2024,
+      "grams": 8,
+      "germinationRate": 70,
+      "donorMemberId": "mem-005",
+      "status": "AVAILABLE"
+    },
+    {
+      "id": "lot-047",
+      "varietyId": "var-035",
+      "harvestYear": 2024,
+      "grams": 8,
+      "germinationRate": 95,
+      "donorMemberId": "mem-005",
+      "status": "AVAILABLE"
+    },
+    {
+      "id": "lot-048",
+      "varietyId": "var-036",
+      "harvestYear": 2025,
+      "grams": 12,
+      "germinationRate": 70,
+      "donorMemberId": "mem-001",
+      "status": "AVAILABLE"
+    },
+    {
+      "id": "lot-049",
+      "varietyId": "var-037",
+      "harvestYear": 2023,
+      "grams": 20,
+      "germinationRate": 92,
+      "donorMemberId": null,
+      "status": "AVAILABLE"
+    },
+    {
+      "id": "lot-050",
+      "varietyId": "var-037",
+      "harvestYear": 2024,
+      "grams": 35,
+      "germinationRate": 78,
+      "donorMemberId": "mem-003",
+      "status": "AVAILABLE"
+    },
+    {
+      "id": "lot-051",
+      "varietyId": "var-038",
+      "harvestYear": 2024,
+      "grams": 35,
+      "germinationRate": 85,
+      "donorMemberId": "mem-003",
+      "status": "AVAILABLE"
+    },
+    {
+      "id": "lot-052",
+      "varietyId": "var-039",
+      "harvestYear": 2025,
+      "grams": 50,
+      "germinationRate": 78,
+      "donorMemberId": "mem-004",
+      "status": "AVAILABLE"
+    },
+    {
+      "id": "lot-053",
+      "varietyId": "var-040",
+      "harvestYear": 2023,
+      "grams": 8,
+      "germinationRate": 88,
+      "donorMemberId": "mem-005",
+      "status": "AVAILABLE"
+    },
+    {
+      "id": "lot-054",
+      "varietyId": "var-040",
+      "harvestYear": 2024,
+      "grams": 12,
+      "germinationRate": 70,
+      "donorMemberId": null,
+      "status": "RETIRED"
+    }
+  ],
+  "members": [
+    {
+      "id": "mem-001",
+      "displayName": "Ada Thorne",
+      "joinedOn": "2021-03-14"
+    },
+    {
+      "id": "mem-002",
+      "displayName": "Bram Okafor",
+      "joinedOn": "2022-05-02"
+    },
+    {
+      "id": "mem-003",
+      "displayName": "Cleo Marsh",
+      "joinedOn": "2023-09-20"
+    },
+    {
+      "id": "mem-004",
+      "displayName": "Dev Lindqvist",
+      "joinedOn": "2024-02-11"
+    },
+    {
+      "id": "mem-005",
+      "displayName": "Esme Haddad",
+      "joinedOn": "2025-04-27"
+    }
+  ],
+  "loans": [
+    {
+      "id": "loan-001",
+      "lotId": "lot-001",
+      "memberId": "mem-001",
+      "borrowedOn": "2026-03-02",
+      "dueSeason": 2026,
+      "returnedGrams": null
+    },
+    {
+      "id": "loan-002",
+      "lotId": "lot-005",
+      "memberId": "mem-002",
+      "borrowedOn": "2026-04-11",
+      "dueSeason": 2026,
+      "returnedGrams": null
+    },
+    {
+      "id": "loan-003",
+      "lotId": "lot-010",
+      "memberId": "mem-001",
+      "borrowedOn": "2025-04-19",
+      "dueSeason": 2025,
+      "returnedGrams": 40
+    }
+  ]
+}
