@@ -38,3 +38,9 @@ kotlin {
         }
     }
 }
+
+// Show println output of the iOS simulator tests in the CI log
+// (the Keychain test reports there whether the round trip ran).
+tasks.withType<org.jetbrains.kotlin.gradle.targets.native.tasks.KotlinNativeTest>().configureEach {
+    testLogging { showStandardStreams = true }
+}
