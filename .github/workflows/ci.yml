@@ -51,6 +51,8 @@ jobs:
       - uses: gradle/actions/setup-gradle@v4
       - name: Pre-install npm packages (retried; GitHub tarball downloads sometimes time out)
         run: |
+          # Yarn 1 reads ~/.yarnrc: give slow GitHub tarball downloads 10 minutes.
+          echo 'network-timeout 600000' >> ~/.yarnrc
           for t in kotlinNpmInstall kotlinWasmNpmInstall; do
             ./gradlew help --task "$t" -q >/dev/null 2>&1 || continue
             for i in 1 2 3; do
