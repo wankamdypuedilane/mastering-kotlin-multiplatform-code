@@ -12,4 +12,4 @@ dependencyResolutionManagement {
     }
 }
 rootProject.name = "smoke"
-include(":shared", ":androidApp", ":desktopApp")
+include(":core", ":shared", ":androidApp", ":desktopApp")

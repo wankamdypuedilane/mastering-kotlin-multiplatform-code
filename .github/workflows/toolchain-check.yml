@@ -12,7 +12,7 @@ jobs:
       - uses: actions/setup-java@v4
         with: { distribution: temurin, java-version: "21" }
       - uses: gradle/actions/setup-gradle@v4
-      - run: ./gradlew :shared:jvmTest :shared:jsNodeTest :shared:wasmJsNodeTest :androidApp:assembleDebug :desktopApp:compileKotlinJvm --continue
+      - run: ./gradlew :core:allTests :shared:jvmTest :shared:compileKotlinJs :shared:compileKotlinWasmJs :androidApp:assembleDebug :desktopApp:compileKotlinJvm --continue
   macos:
     runs-on: macos-latest
     defaults: { run: { working-directory: toolchain-check } }
@@ -24,7 +24,7 @@ jobs:
       - name: Versions
         run: xcodebuild -version && swift --version && sw_vers
       - name: Kotlin/Native tests on the iOS simulator
-        run: ./gradlew :shared:iosSimulatorArm64Test
+        run: ./gradlew :core:iosSimulatorArm64Test :shared:iosSimulatorArm64Test
       - name: Generate Xcode project
         run: brew install xcodegen && cd iosApp && xcodegen generate
       - name: Build SwiftUI app for the simulator

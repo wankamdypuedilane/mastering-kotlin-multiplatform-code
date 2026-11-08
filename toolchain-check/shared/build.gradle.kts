@@ -11,17 +11,19 @@ kotlin {
         minSdk = 24
     }
     jvm()
-    js { nodejs() }
+    js { browser() }
     @OptIn(org.jetbrains.kotlin.gradle.ExperimentalWasmDsl::class)
-    wasmJs { nodejs() }
+    wasmJs { browser() }
     listOf(iosArm64(), iosSimulatorArm64()).forEach { target ->
         target.binaries.framework {
             baseName = "Shared"
             isStatic = true
+            export(project(":core"))
         }
     }
     sourceSets {
         commonMain.dependencies {
+            api(project(":core"))
             implementation(libs.coroutines.core)
             implementation(libs.compose.runtime)
             implementation(libs.compose.foundation)
