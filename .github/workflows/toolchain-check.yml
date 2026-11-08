@@ -1,7 +1,5 @@
 name: toolchain-check
 on:
-  push:
-    paths: ["toolchain-check/**", ".github/workflows/toolchain-check.yml"]
   workflow_dispatch:
 jobs:
   linux:

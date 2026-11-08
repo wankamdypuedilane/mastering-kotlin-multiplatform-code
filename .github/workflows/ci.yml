@@ -1,0 +1,57 @@
+name: ci
+# Every top-level folder with a settings.gradle.kts is a standalone Gradle build.
+# Each defines two aggregate tasks in its root build.gradle.kts:
+#   ciLinux  - JVM/Android/Desktop/JS/Wasm builds and tests
+#   ciMacos  - Kotlin/Native iOS simulator tests (+ framework for iosApp)
+# If <project>/iosApp/project.yml exists, the SwiftUI app is generated with XcodeGen
+# and built for the iOS simulator.
+on:
+  push:
+  workflow_dispatch:
+jobs:
+  discover:
+    runs-on: ubuntu-latest
+    outputs:
+      projects: ${{ steps.list.outputs.projects }}
+    steps:
+      - uses: actions/checkout@v4
+      - id: list
+        run: |
+          echo "projects=$(ls -d */settings.gradle.kts | xargs -n1 dirname | grep -v '^toolchain-check$' | jq -R . | jq -cs .)" >> "$GITHUB_OUTPUT"
+  linux:
+    needs: discover
+    if: needs.discover.outputs.projects != '[]'
+    strategy:
+      fail-fast: false
+      matrix: { project: "${{ fromJson(needs.discover.outputs.projects) }}" }
+    runs-on: ubuntu-latest
+    defaults: { run: { working-directory: "${{ matrix.project }}" } }
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-java@v4
+        with: { distribution: temurin, java-version: "21" }
+      - uses: gradle/actions/setup-gradle@v4
+      - run: ./gradlew ciLinux --continue
+  macos:
+    needs: discover
+    if: needs.discover.outputs.projects != '[]'
+    strategy:
+      fail-fast: false
+      matrix: { project: "${{ fromJson(needs.discover.outputs.projects) }}" }
+    runs-on: macos-latest
+    defaults: { run: { working-directory: "${{ matrix.project }}" } }
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-java@v4
+        with: { distribution: temurin, java-version: "21" }
+      - uses: gradle/actions/setup-gradle@v4
+      - run: ./gradlew ciMacos --continue
+      - name: SwiftUI app
+        run: |
+          if [ ! -f iosApp/project.yml ]; then echo "no iosApp"; exit 0; fi
+          brew list xcodegen >/dev/null 2>&1 || brew install xcodegen
+          cd iosApp && xcodegen generate
+          set -o pipefail
+          xcodebuild -project iosApp.xcodeproj -scheme iosApp -configuration Debug \
+            -sdk iphonesimulator -destination 'generic/platform=iOS Simulator' \
+            CODE_SIGNING_ALLOWED=NO build | tail -30
