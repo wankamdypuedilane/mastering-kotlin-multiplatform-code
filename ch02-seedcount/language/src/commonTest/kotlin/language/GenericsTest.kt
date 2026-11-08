@@ -28,7 +28,7 @@ class GenericsTest {
         assertEquals(75, largest(listOf(60, 75, 55)))
         val names = listOf("Pea", "Kale", "Leek")
         assertEquals("Kale < Leek < Pea", sortedLabel(names))
-        val mixed: List<Any> = listOf("Pea", 3, "Kale", 4.5)
+        val mixed: List<Any> = listOf("Pea", 3, "Kale", true)
         assertEquals(2, mixed.countOf<String>())
         assertEquals(1, mixed.countOf<Int>())
     }

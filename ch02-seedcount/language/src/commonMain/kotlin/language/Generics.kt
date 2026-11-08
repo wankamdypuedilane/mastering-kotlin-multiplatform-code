@@ -44,4 +44,4 @@ fun <T> sortedLabel(items: List<T>): String
     items.sorted().joinToString(" < ")
 
 inline fun <reified T> List<Any>.countOf(): Int = count { it is T }
-// listOf("Pea", 3, "Kale", 4.5).countOf<String>() == 2
+// listOf("Pea", 3, "Kale", true).countOf<String>() == 2
